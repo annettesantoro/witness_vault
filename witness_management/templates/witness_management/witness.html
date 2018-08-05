@@ -146,14 +146,15 @@
             </div><!--/.col-md-3-->
 
         </div><!--/.panel-body-->
-    </div><!--/.panel panel-default-->    
+    </div><!--/.panel panel-default-->
+    {% if modify in "modify" %}        
     <div class='witness_tabs'>
         <nav>
             <ul class='nav nav-tabs'>
-                <li class='active'><a data-toggle='tab' href='#witness_documents'>Documents</a></li>
-                <li><a data-toggle='tab' href='#witness_interactions'>Communications</a></li>
-                <li><a data-toggle='tab' href='#witness_operations'>Operations</a></li>
-                <li><a data-toggle='tab' href='#assignment'>Assignment</a></li>
+                <li class='active'>
+                    <a data-toggle='tab' href='#witness_documents'>Documents</a></li>
+                <li><a data-toggle='tab' href='#witness_interactions'>Interactions</a></li>
+                <li><a data-toggle='tab' href='#operations'>Activities</a></li>
             </ul>
         </nav>
         <div class='tab-content'>
@@ -211,9 +212,102 @@
 					</div><!--/.panel-body-->
 				</div><!--/.panel panel-default-->
 			</div><!--/#documents-->
-        </div><!--/.tab-content-->
-        
-    </div><!--/.witness_tabs-->
+        <div id='witness_interactions' class='tab-pane fade'>
+            <div class='panel panel-default'>
+                <div class='panel-heading clearfix'>
+                    {% if modify in 'modify' %}
+                    <div class='pull-right'>
+                      <a href="" button type='button' class='btn btn-inverse btn-md' data-toggle='modal' data-toggle='tooltip' title='New Interaction' data-target='#witness_interaction'><span class="glyphicon glyphicon-pencil"></span></a>
+                     </div><!--/.pull-right-->
+                    {% endif %}
+                  <h3 class='panel-title'>Interaction History</h3>
+                </div><!--/.panel-heading-->
+                <div class='panel-body'>
+                  <div class='row'>
+                    <div class='col-md-12 col-sm-12 col-xs-12'>
+                    <div style="overflow-x:auto;">
+                      <table class='datatable table table-hover'>
+                        <thead>
+                          <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Relationship to Site</th>
+                            <th>Phone</th>
+                            <th>Type</th>
+                            <th>Method</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for interaction in interactions %}
+                            <tr>
+                              <td>{{ interaction.interaction_number }}</td>
+                              <td>{{ interaction.interactor_name }}</td>
+                              <td>{{ interaction.relationship_to_site }}</td>
+                              <td>{{ interaction.phone }}</td>
+                              <td>{{ interaction.interaction_type }}</td>
+                              <td>{{ interaction.interaction_method }}</td>
+                              <td>{{ interaction.interaction_date }}</td>
+                              <td><a href="{% url 'modify_interaction' pk=interaction.pk %}"data-toggle='tooltip' title='Open'><span class='glyphicon glyphicon-folder-open'></span></a></td>
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div><!--/.overflow-x:auto-->
+                    </div><!--/.col-md-12 col-sm-12 col-xs-12-->
+                  </div><!--/.row-->
+                </div><!--/.panel-body-->
+              </div><!--/.panel panel-default-->
+              </div><!--/#interactions tab-->        
+        <div id='witness_operations' class='tab-pane fade'>
+            <div class='panel panel-default'>
+              <div class='panel-heading clearfix'>
+                {% if modify in "modify" %}
+                  <div class='pull-right'>
+                   <a href="" button type='button' class='btn btn-inverse btn-md' data-toggle='modal' data-toggle='tooltip' title='New Operation' data-target='#witness_operation'><span class="glyphicon glyphicon-pencil"></span></a>
+                  </div><!--/.pull-right-->
+                {% endif %}
+                <h3 class='panel-title'>Operations History</h3>
+              </div><!--/.panel-heading-->
+              <div class='panel-body'>
+                <div class='row'>
+                  <div class='col-md-12 col-sm-12 col-xs-12'>
+                   <div style="overflow-x:auto;">
+                    <table class='datatable table table-hover'>
+                      <thead>
+                        <tr>
+                          <th>Seq</th>
+                          <th>Op ID</th>
+                          <th>Operation Type</th>
+                          <th>Summary</th>
+                          <th>Assignee Group</th>
+                          <th>Status</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for operation in operations %}
+                          <tr>
+                            <td>{{ operation.seq }}</td>
+                            <td>{{ operation.oper_num }}</td>
+                            <td>{{ operation.oper_type }}</td>
+                            <td>{{ operation.summary }}</td>
+                            <td>{{ operation.coordinator_group }}</td>
+                            <td>{{ operation.status }}</td>
+                            <td><a href="{% url 'modify_operation' pk=operation.pk %}" data-toggle='tooltip' title='Open'><span class='glyphicon glyphicon-folder-open'></span></a></td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div><!--/.overflow-x-->
+                  </div><!--/.col-md-12 col-sm-12 col-xs-12-->
+                </div><!--/.row-->
+              </div><!--/.panel-body-->
+            </div><!--/.panel panel-default-->
+		</div><!--/#witness_operations-->        
+    </div><!--/.tab-content-->
+    {% endif %} <!--/.hide tabs for form that is new-->   
 </form>
 <!-- Relationship MODALS -->
 {% if modify in "modify" %}

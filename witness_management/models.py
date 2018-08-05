@@ -17,7 +17,7 @@ class Witness(models.Model):
     full_name = models.CharField(max_length=80, blank=True, null=True)
     dob = models.CharField(max_length=20, blank=True, null=True)
     gender = models.CharField(max_length=10, blank=True, null=True)
-    address = models.CharField(max_length=20, blank=True, null=True)
+    address = models.CharField(max_length=120, blank=True, null=True)
     city = models.CharField(max_length=20, blank=True, null=True)        
     province = models.CharField(max_length=20, blank=True, null=True)
     country = models.CharField(max_length=20, blank=True, null=True)

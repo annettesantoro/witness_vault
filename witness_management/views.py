@@ -13,10 +13,12 @@ from interaction_management.forms import InteractionForm
 # Create your views here.
 
 def witness_workbench(request):
+    witnesses = Witness.objects.all()
     return render(
         request,
         'witness_management/witness_workbench.html',
-        {'title': 'Witness Management Workbench'})
+        {'witnesses': 'witnesses',
+        'title': 'Witness Management Workbench'})
 
 def new_witness(request):
     form = WitnessForm()
@@ -26,9 +28,8 @@ def new_witness(request):
             witness = form.save(commit=False)
             witness.created_by = request.user
             witness.created_date = timezone.now()
-            if witness.parent_id == '':
-                witness.parent_id = None
             witness.save()
+            witness.witness_status = 'New'
             witness.witness_number = "W - " + str(witness.id)
             witness.save()
             messages.success(request, 'New Witness Has Been Created', extra_tags='modify modify_witness/' + str(witness.id))
