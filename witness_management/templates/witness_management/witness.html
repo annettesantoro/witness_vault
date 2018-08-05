@@ -1,0 +1,354 @@
+{% extends 'core/base.html' %}
+{% block content %}
+  <div class='wraper container-fluid'>
+    <form method='POST' novalidate>{% csrf_token %}
+      <div class='panel panel-default'>
+        <div class='panel-heading clearfix'>
+			<div class='pull-right'>
+                <button type='submit' class='btn btn-inverse btn-md' name='master'>
+                    <i class='glyphicon glyphicon-floppy-save' aria-hidden="true" data-toggle='tooltip' title='Save File'></i>
+                </button>
+                <a href="">
+                    <button type='button' class='btn btn-inverse btn-md'>
+                        <i class='glyphicon glyphicon-folder-close' aria-hidden="true"data-toggle='tooltip' title='Close File'></i>
+                    </button>
+                </a>
+            </div><!--/.pull-right-->
+          <h3 class='panel-title'>{{ title }}</h3>
+        </div><!--/.panel-heading clearfix-->
+        <div class='panel-body'>
+            <div class='col-md-2'>
+                <label for='{{ form.witness_type.auto_id }}'>Witness Type <span class='required'>*</span></label>
+                <div class='form-group {% if form.witness_type.errors %} has-error {% endif %}'>
+                    {{ form.witness_type }}
+                </div><!--/.form-group-->
+            </div><!--/.col-md-2-->
+            <div class='col-md-4'>
+                <label for='{{ form.witness_name.auto_id }}'>Full Name of Witness <span class='required'>*</span></label>
+                <div class='form-group {% if form.witness_name.errors %} has-error {% endif %} has-feedback'>
+                    {{ form.witness_name }}
+                </div><!--/.form-group-->
+            </div><!--/.col-md-4-->
+            <div class='col-md-2'>
+                <label for='{{ form.witness_status.auto_id }}'>Status</label>
+                <div class='form-group {% if form.witness_status.errors %} has-error {% endif %}'>
+					{{ form.witness_status }}
+				</div><!--/.form-group-->
+            </div><!--/.col-md-1-->
+            <div class='col-md-3'>
+                <label for='{{ form.address.auto_id }}'>Address</label>
+                <div class='form-group {% if form.address.errors %} has-error {% endif %} has-feedback'>
+                    {{ form.address }}
+                </div><!--/.form-group-->
+            </div><!--/.col-md-3-->
+            <div class='col-md-2'>
+                <label for='{{ form.city.auto_id }}'>City</label>
+                <div class='form-group {% if form.city.errors %} has-error {% endif %} has-feedback'>
+                    {{ form.city }}
+                </div><!--/.form-group-->
+            </div><!--/.col-md-2-->
+            <div class='col-md-2'>
+                <label for='{{ form.country.auto_id }}'>Country</label>
+                <div class='form-group {% if form.country.errors %} has-error {% endif %}'>
+                    {{ form.country }}
+				</div><!--/.form-group-->
+            </div><!--/.col-md-2-->
+            <div class='col-md-1'>
+                <label for='{{ form.province.auto_id }}'>Prov/State</label>
+                <div class='form-group {% if form.province.errors %} has-error {% endif %}'>
+					{{ form.province }}
+				</div><!--/.form-group-->
+            </div><!--/.col-md-1-->
+            <div class='col-md-1'>
+                <label for='{{ form.pc.auto_id }}'>PC/ZIP</label>
+                <div class='form-group {% if form.pc.errors %} has-error {% endif %} has-feedback'>
+                    {{ form.pc }}
+                </div><!--/.form-group-->
+            </div><!--/.col-md-1-->
+            <div class='col-md-2'>
+                <label for='{{ form.primary_phone.auto_id }}'>Primary Phone <span class='required'>*</span></label>
+                <div class='form-group {% if form.primary_phone.errors %} has-error {% endif %} has-feedback'>
+                    {{ form.primary_phone }}
+                </div><!--/.form-group-->
+            </div><!--/.col-md-2-->
+            <div class='col-md-2'>
+                <label for='{{ form.alternate_phone.auto_id }}'>Alternate Phone</label>
+                <div class='form-group {% if form.alternate_phone.errors %} has-error {% endif %} has-feedback'>
+                    {{ form.alternate_phone }}
+							</div><!--/.form-group-->
+            </div><!--/.col-md-2-->
+            <div class='col-md-3'>
+                <label for='{{ form.email.auto_id }}'>Email</label>
+                <div class='form-group {% if form.email.errors %} has-error {% endif %} has-feedback'>
+                    {{ form.email }}
+                </div><!--/.form-group-->
+            </div><!--/.col-md-3-->
+            <div class='col-md-3'>
+                <label for='{{ form.relationship_to_site.auto_id }}'>Relationship to Site</label>
+                <div class='form-group {% if form.relationship_to_site.errors %} has-error {% endif %}'>
+					{{ form.relationship_to_site }}
+				</div><!--/.form-group-->
+            </div><!--/.col-md-3-->
+            <div class='col-md-2'>
+                <label for='{{ form.witness_statement_received.auto_id }}'>Statement Received?</label>
+                <div class='form-group {% if form.witness_statement_received.errors %} has-error {% endif %}'>
+                    {{ form.witness_statement_received }}
+                </div><!--/.form-group-->
+            </div><!--/.col-md-2-->
+            <div class='col-md-3'>
+                <label for='{{ form.mechanism.auto_id }}'>Mechanism</label>
+                <div class='form-group {% if form.mechanism.errors %} has-error {% endif %}'>
+                    {{ form.mechanism }}
+                </div><!--/.form-group-->
+            </div><!--/.col-md-3-->
+        </div><!--/.panel-body-->
+    </div><!--/.panel panel-default-->
+    <div class='witness_tabs'>
+        <nav>
+            <ul class='nav nav-tabs'>
+                <li class='active'><a data-toggle='tab' href='#witness_documents'>Documents</a></li>
+                <li><a data-toggle='tab' href='#witness_interactions'>Communications</a></li>
+                <li><a data-toggle='tab' href='#witness_operations'>Operations</a></li>
+                <li><a data-toggle='tab' href='#assignment'>Assignment</a></li>
+            </ul>
+        </nav>
+        <div class='tab-content'>
+            <div id='witness_documents' class='tab-pane active'>
+                <div class='panel panel-default'>
+                    <div class='panel-heading clearfix'>
+                        {% if modify in "modify" %}
+                        <div class='pull-right'>
+                            <a href="" button type='button' 
+                            class='btn btn-inverse btn-md' 
+                            data-toggle='modal' 
+                            data-toggle='tooltip' 
+                            title='New' 
+                            data-target='#witness_document'>
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </div><!--/.pull-right-->
+                        {% endif %}
+                        <h3 class='panel-title'>Document History</h3>
+                    </div><!--/.panel-heading-->
+                    <div class='panel-body'>
+                        <div class='row'>
+                            <div class='col-md-12 col-sm-12 col-xs-12'>
+                                <div style="overflow-x:auto;">
+                                    <table class='datatable table table-hover'>
+                                        <thead>
+                                            <tr>
+                                                <th>Document ID</th>
+												<th>Document Type</th>
+												<th>Reference Number</th>
+												<th>Title</th>
+												<th>Expiry Date</th>
+												<th>Status</th>
+												<th>Actions</th>
+											</tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for document in documents %}
+                                            <tr>
+                                                <td>{{ document.document_number }}</td>
+												<td>{{ document.document_type }}</td>
+												<td>{{ document.reference_num }}</td>
+												<td>{{ document.title }}</td>
+												<td>{{ document.expiry_date }}</td>
+												<td>{{ document.status }}</td>
+												<td><a href="{% url 'modify_document' pk=document.pk %}">
+                                                    <span class='glyphicon glyphicon-folder-open'></span></a></td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+							</div><!--/.col-md-12 col-sm-12 col-xs-12-->
+						</div><!--/.row-->
+					</div><!--/.panel-body-->
+				</div><!--/.panel panel-default-->
+			</div><!--/#documents-->
+        </div><!--/.tab-content-->
+    </div><!--/.witness_tabs-->
+</form>
+<!-- Relationship MODALS -->
+{% if modify in "modify" %}
+    <div id='witness_document' 
+        class='modal fade' 
+        tabindex='-1' 
+        role='dialog' 
+        aria-labelledby='WitnessDocument' 
+        aria-hidden='true' 
+        style='display: none;'>
+        <div class='modal-dialog modal-lg'>
+            <div class='modal-content p-0 b-0'>
+                <div class='panel panel-color panel-inverse'>
+                    <div class='panel-heading'>
+                        <button type='button' 
+                        class='close' 
+                        data-dismiss='modal' 
+                        aria-hidden='true' 
+                        style='color: white;'>x</button>
+                        <h3 class='panel-title'>Document</h3>
+                    </div><!--/.panel-heading-->
+                    <div class='panel-body'>
+                        <form method='POST' 
+                        name='witness_document'>
+                        {% csrf_token %}
+                        <div class='row'>
+                            <div class='col-md-12'>
+                                <label for="{{ document_form.attachment.auto_id }}">Attachment</label>
+                                <input class='form-control'
+                                id="{{ document_form.attachment.auto_id }}" 
+                                maxlength="{{ document_form.attachment.field.max_length }}"
+                                name="{{ document_form.attachment.html_name }}" 
+                                type="file">
+                            </div><!--/.col-md-12-->
+                        </div><!--/.row-->
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class='btn btn-inverse btn-md modal-btn pull-right' 
+                                name='witness_document' 
+                                type='submit'>Save</button>
+                            </div><!--/.col-md-12-->
+                        </div><!--/.row-->
+                    </form>
+                </div><!--/.panel-body-->
+            </div><!--/.panel-inverse-->
+        </div><!--/.modal-content-->
+    </div><!--/.modal-dialog-->
+</div><!--/#witness_documents-->
+<div id='witness_interaction' 
+    class='modal fade' 
+    tabindex='-1' 
+    role='dialog' 
+    aria-labelledby='WitnessInteraction' 
+    aria-hidden='true' 
+    style='display: none;'>
+    <div class='modal-dialog modal-lg'>
+        <div class='modal-content p-0 b-0'>
+            <div class='panel panel-color panel-inverse'>
+                <div class='panel-heading'>
+                    <button type='button' 
+                    class='close' 
+                    data-dismiss='modal' 
+                    aria-hidden='true' 
+                    style='color: white;'>x</button>
+                    <h3 class='panel-title'>New Interaction</h3>
+                </div><!--/.panel-heading-->
+                <div class='panel-body'>
+                    <form method='POST' name='witness_interaction'>{% csrf_token %}
+                        <div class='row'>
+                            <div class='col-md-4'>
+                                <label for='interaction_form.interaction_type.auto_id'>Interaction Type 
+                                    <span class='required'>*</span>
+                                </label>
+                                <div class='form-group {% if interaction_form.interaction_type.errors %} has-error {% endif %}'>
+                                    {{ interaction_form.interaction_type }}
+                                </div><!--/.form-group-->
+                            </div><!--/.col-md-4-->
+                            <div class='col-md-4'>
+                                <label for='interaction_form.interaction_method.auto_id'>Interaction Method 
+                                    <span class='required'>*</span>
+                                </label>
+                                <div class='form-group {% if interaction_form.interaction_method.errors %} has-error {% endif %}'>
+                                    {{ interaction_form.interaction_method }}
+                                </div><!--/.form-group-->
+                            </div><!--/.col-md-4-->
+                            <div class='col-md-4'>
+                                <label for='{{ interaction_form.interaction_date.auto_id }}'>Interaction Date 
+                                    <span class='required'>*</span>
+                                </label>
+                                <div class='form-group {% if interaction_form.interaction_date.errors %} has-error {% endif %}'>
+                                    {{ interaction_form.interaction_date }}
+                                </div><!--/.form-group-->
+                            </div><!--/.col-md-4-->
+                        </div><!--/.row-->
+                        <div class='row'>
+                            <div class='col-md-8'>
+                                <label for='{{ interaction_form.interactor_name.auto_id }}'>Contact Name 
+                                    <span class='required'>*</span></label>
+                                    <div class='form-group {% if interaction_form.interactor_name.errors %} has-error {% endif %} has-feedback'>
+                                        {{ interaction_form.interactor_name }}
+                                        {% if interaction_form.interactor_name.errors %}
+                                        <span class='glyphicon glyphicon-remove form-control-feedback'></span>
+                                        {% endif %}
+                                    </div><!--/.form-group-->
+                                </div><!--/.col-md-8-->
+                                <div class='col-md-4'>
+                                    <label for='{{ interaction_form.relationship.auto_id }}'>Relationship to Witness 
+                                        <span class='required'>*</span>
+                                    </label>
+                                    <div class='form-group {% if interaction_form.relationship.errors %} has-error {% endif %}'>
+                                        {{ interaction_form.relationship }}
+                                    </div><!--/.form-group-->
+                                </div><!--/.col-md-4-->
+                                <div class='col-md-4'>
+                                    <label for='{{ interaction_form.email.auto_id }}'>Email Address</label>
+                                    <div class='form-group {% if interaction_form.email.errors %} has-error {% endif %} has-feedback'>
+                                        {{ interaction_form.email }}
+                                        {% if interaction_form.email.errors %}
+                                        <span class='glyphicon glyphicon-remove form-control-feedback'></span>
+                                        {% endif %}
+                                    </div><!--/.form-group-->
+                                </div><!--/.col-md-4-->
+                                <div class='col-md-4'>
+                                    <label for='{{ interaction_form.phone.auto_id }}'>Telephone Number 
+                                        <span class='required'>*</span>
+                                    </label>
+                                    <div class='form-group {% if interaction_form.phone.errors %} has-error {% endif %} has-feedback'>
+                                        {{ interaction_form.phone }}
+                                        {% if interaction_form.phone.errors %}
+                                        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                                        {% endif %}
+                                    </div><!--/.form-group-->
+                                </div><!--/.col-md-4-->
+                                <div class='col-md-4'>
+                                    <label for='{{ interaction_form.direction.auto_id }}'>Direction 
+                                        <span class='required'>*</span>
+                                    </label>
+                                    <div class='form-group {% if interaction_form.phone.errors %} has-error {% endif %} has-feedback'>
+                                        {{ interaction_form.direction }}
+                                        {% if interaction_form.direction.errors %}
+                                        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                                        {% endif %}
+                                    </div><!--/.form-group-->
+                                </div><!--/.col-md-4-->
+                            </div><!--/.row-->
+                            <div class='row'>
+                                <div class='col-md-12'>
+                                    <label for='{{ interaction_form.summary.auto_id  }}'>Summary 
+                                        <span class='required'>*</span>
+                                    </label>
+                                    <div class='form-group {% if interaction_form.summary.errors %} has-error {% endif%} has-feedback'>
+                                        {{ interaction_form.summary }}
+                                        {% if interaction_form.summary.errors %}
+                                        <span class='glyphicon glyphicon-remove form-control-feedback'></span>
+                                        {% endif %}
+                                    </div><!--/.form-group-->
+                                </div><!--/.col-md-12-->
+                            </div><!--/.row-->
+                            <div class='row'>
+                                <div class='col-md-12'>
+                                    <label for='{{ interaction_form.narrative_description.auto_id }}'>Narrative Description</label>
+                                    {{ interaction_form.narrative_description }}
+                                </div><!--/.col-md-12-->
+                            </div><!--/.row-->
+                            <button class='btn btn-inverse btn-md modal-btn pull-right' name='witness_interaction' type='submit'>Save</button>
+                        </form>
+                    </div><!--/.panel-body-->
+                </div><!--/.panel-inverse-->
+            </div><!--/.modal-content-->
+        </div><!--/.modal-dialog-->
+    </div><!--/#witness_interaction-->
+    {% endif %}
+    <!-- End Of Relationship Modals -->
+</div><!--/.wraper container-fluid-->
+<script type="text/javascipt">
+    document.getElementById("activity_hidden").style.display = "none";
+    $(document).ready(function(){
+        var hidden = $(".hidden");
+        $(hidden).hide();
+    });
+</script>
+{% endblock %}

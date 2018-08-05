@@ -1,0 +1,102 @@
+{% extends 'core/base.html' %}
+{% block content %}
+	<div class='wraper container-fluid'>
+		<form method='POST' class='' novalidate>{% csrf_token %}
+			<div class='panel panel-default'>
+				<div class='panel-heading clearfix'>
+					<h3 class='panel-title'>{{title}}</h3>
+					<div class='pull-right'>
+						<button type='submit' class='btn btn-inverse btn-md' name='master'>
+                            <i class='glyphicon glyphicon-floppy-save' 
+                            aria-hidden="true" 
+                            data-toggle='tooltip' 
+                            title='Save'></i>
+						</button>
+						<a href="{% url '' %}">
+							<button type='button' class='btn btn-inverse btn-md'>
+                                <i class='glyphicon glyphicon-folder-close' 
+                                aria-hidden="true"
+                                data-toggle='tooltip' 
+                                title='Home'></i>
+							</button>
+						</a>
+					</div><!--/.pull-right-->					
+				</div><!--/.panel-heading-->
+				<div class='panel-body'>
+					<div class='row'>
+						<div class='col-md-1'>
+							<label for='id_parent_id'>Parent ID </label>
+							<div class='form-group {% if form.parent_id.errors %} has-error {% endif %}'>
+                                {{ form.parent_id}}
+                            </div><!--/.form-group-->
+						</div><!--/.col-md-1-->
+						<div class='col-md-2'>
+							<label for='id_document_type'>Document Type 
+                                <span class='required'>*</span>
+                            </label>
+							<div class='form-group {% if form.document_type.errors %} has-error {% endif %}'>
+                                {{ form.document_type}}
+                            </div><!--/.form-group-->
+						</div><!--/.col-md-2-->
+						<div class='col-md-3'>
+							<label for='id_title'>Title 
+                                <span class='required'>*</span>
+                            </label>
+							<div class='form-group {% if form.title.errors %} has-error {% endif %}'>
+                                {{ form.title }}
+                            </div><!--/.form-group-->
+						</div><!--/.col-md-3-->
+						<div class='col-md-2'>
+							<label for='id_status'>Status 
+                                <span class='required'>*</span>
+                            </label>
+							<div class='form-group {% if form.status.errors %} has-error {% endif %}'>
+                                {{ form.status }}
+                            </div><!--/.form-group-->
+						</div><!--/.col-md-2-->
+						<div class='col-md-4'>
+							<label for='id_author'>Issued By </label>
+							<div class='form-group {% if form.author.errors %} has-error {% endif %}'>
+                                {{ form.author}}
+                            </div><!--/.form-group-->
+						</div><!--/.col-md-4-->
+								<div class='col-md-2'>
+							<label for='id_issued_date'>Issued Date </label>
+							<div class='form-group {% if form.issued_date.errors %} has-error {% endif %} has-feedback'>
+                                {{ form.issued_date }}</div><!--/.form-group-->
+						</div><!--/.col-md-2-->
+						<div class='col-md-2'>
+							<label for='id_received_date'>Received Date 
+                                <span class='required'>*</span>
+                            </label>
+							<div class='form-group {% if form.received_date.errors %} has-error {% endif %} has-feedback'>
+                                {{ form.received_date }}</div><!--/.form-group-->
+						</div><!--/.col-md-2-->
+						<div class='col-md-2'>
+							<label for='id_expiry_date'>Submmitted Date </label>
+							<div class='form-group {% if form.expiry_date.errors %} has-error {% endif %} has-feedback'>
+                                {{ form.submitted_date }}
+                            </div><!--/.form-group-->
+						</div><!--/.col-md-2-->
+					</div><!--/.row-->
+					<div class='row'>
+						<div class='col-md-12'>
+							<label for='id_narrative_description'>Narrative Description </label>
+							<div class='form-group {% if form.narrative_description.errors %} has-error {% endif %}'>
+                                {{ form.narrative_description }}
+                            </div><!--/.form-group-->
+						</div><!--/.col-md-4-->
+					</div><!--/.row-->
+					<div class='row'>
+						<div class='col-md-12'>
+							<label for='id_attachment'>Attachments </label>
+							<div class='form-group {% if form.attachment.errors %} has-error {% endif %}'>
+                                {{ form.attachment }}
+                            </div><!--/.form-group-->
+						</div><!--/.col-md-4-->
+					</div><!--/.row-->
+				</div><!--/.panel-body-->
+			</div><!--/.panel .panel-default-->
+		</form>
+	</div><!--/.wraper .container-fluid-->
+{% endblock %}

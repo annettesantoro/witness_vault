@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <style>
+    .welcome {
+    display: block;
+    margin: 25% auto;      
+    max-width: 500px;
+    max-height: 302px;
+    width: 100%;
+    height: auto;     
+    }
+    </style>
+  </head>
+  <div class="wraper container-fluid">
+    <img class='welcome' src='{% static 'img/SmallLogo.png' %}'>
+  </div><!-- wraper container-fluid-->
+</html>
+{% endblock %}
