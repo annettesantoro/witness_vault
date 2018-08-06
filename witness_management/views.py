@@ -14,12 +14,10 @@ from interaction_management.forms import InteractionForm
 
 def witness_workbench(request):
     witnesses = Witness.objects.all()
-    return render(
-        request,
-        'witness_management/witness_workbench.html',
-        {'witnesses': 'witnesses',
-        'witness': 'witness',
-        'title': 'Witness Management Workbench'})
+    return render(request,
+                  'witness_management/witness_workbench.html',
+                  {'witnesses': witnesses,
+                   'title': 'Witness Management Workbench'})
 
 def new_witness(request):
     form = WitnessForm()
@@ -43,13 +41,17 @@ def new_witness(request):
                   'witness_management/witness.html',
                   {'form': form,
                    'title': 'New Witness'})
-
+                   
 def modify_witness(request, pk):
     # Query Sets
     witness = get_object_or_404(Witness, pk=pk)
+    documents = Document.objects.filter(parent_id=witness.id)
+    interactions = Interaction.objects.filter(parent_id=witness.id)
+    # operations = Operation.objects.filter(parent_id=witness.id)
     # Forms
     document_form = DocumentForm()
     interaction_form = InteractionForm()
+    #operation_form = OperationForm()
     # Modify Witness
     if request.method == "POST" and 'master' in request.POST:     
         form = WitnessForm(request.POST, instance=witness)
@@ -57,10 +59,8 @@ def modify_witness(request, pk):
             form = WitnessForm(request.POST, instance=witness)
             witness.modified_by = request.user
             witness.modified_date = timezone.now()
-            if witness.parent_id == '':
-                witness.parent_id = None
             witness.save()
-            witness.witness_number = "WIT" + str(witness.id)
+            witness.witness_number = "W - " + str(witness.id)
             witness.save()
             messages.success(request, 'Witness Has Been Modified')
             return redirect(witness_workbench)
@@ -75,13 +75,10 @@ def modify_witness(request, pk):
             document = document_form.save(commit=False)
             document.created_by = request.user
             document.created_date = timezone.now()
+            document.parent_id = witness.id               
             document.save()
-            document.document_number = "DOC" + str(document.id)
-            document.parent_id = witness.id
-            document.document_number = "DOC" + str(document.id)
-            document.parent_source = "Witness Management"
+            document.document_number = "D - " + str(document.id)
             document.save()
-            witness.save()
             document_form = DocumentForm()
             messages.success(request, 'New Document Has Been Created')
             return redirect(request.META['HTTP_REFERER'])
@@ -97,8 +94,8 @@ def modify_witness(request, pk):
             interaction.created_by = request.user
             interaction.created_date = timezone.now()
             interaction.save()
-            interaction.parent_id = witness.id
             interaction.interaction_number = "I - " + str(interaction.id)
+            interaction.parent_id = witness.id
             interaction.save()
             interaction_form = InteractionForm()
             messages.success(request, 'New Interaction Has Been Created')
@@ -107,11 +104,33 @@ def modify_witness(request, pk):
             messages.error(request, 'New Interaction Has Not Been Created')
     else:
         interaction_form = InteractionForm()
+    # Create Relationship to Operation
+    #if request.method == "POST" and 'witness_operation' in request.POST:
+    #    operation_form = OperationForm(request.POST)
+    #   if operation_form.is_valid():
+    #        operation = operation_form.save(commit=False)
+    #        operation.created_by = request.user
+    #        operation.created_date = timezone.now()
+    #        operation.save()
+    #        operation.parent_id = witness.id
+    #        operation.operation_number = "OP-" + str(operation.id)
+    #        operation.save()
+    #        operation_form = OperationForm()
+    #        messages.success(request, 'New Operation Related to Witness Has Been Created', extra_tags='modify /operations_management/modify_operation/' + str(operation.id))
+    #        return redirect(request.META['HTTP_REFERER'])
+    #    else:
+    #        messages.error(request, 'New Operation Related to Witness Has Not Been Created')
+    #else:
+    #    operation_form = OperationForm()
     return render(request,
                   'witness_management/witness.html',
                   {'form': form,
                    'document_form': document_form,
                    'interaction_form': interaction_form,
+                   #'operation_form': operation_form,
                    'witness': witness,
+                   'documents': documents,
+                   'interactions': interactions,
+                   #'operations': operations,
                    'modify': 'modify',
                    'title': 'Modify Witness:  ' + str(witness.witness_number)})

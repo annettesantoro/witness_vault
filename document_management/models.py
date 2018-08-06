@@ -8,7 +8,7 @@ class Document(models.Model):
     document_number = models.CharField(max_length=20, blank=True, null=True)
     document_type = models.CharField(max_length=40, blank=True, null=True)  
     summary = models.CharField(max_length=50, blank=True, null=True)
-    description = models.CharField(max_length=60, blank=True, null=True)
+    description = models.TextField(max_length=60, blank=True, null=True)
     author = models.CharField(max_length=60, blank=True, null=True)    
     status = models.CharField(max_length=40, blank=True, null=True)
     issued_date = models.CharField(max_length=40, blank=True, null=True)       
@@ -20,4 +20,4 @@ def create(self):
     self.save()
 
 def __str__(self):
-    return'{}'.format(self.document_id)
+    return'{}'.format(self.document_number)

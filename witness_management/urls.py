@@ -12,8 +12,9 @@ urlpatterns = [
         views.new_witness,
         name='new_witness'),
     
-    url(
-        r'modify_witness/(?P<pk>\d+)/$',
+    url(r'modify_witness/(?P<pk>\d+)/$',
         views.modify_witness,
         name='modify_witness'),
+
+
 ]

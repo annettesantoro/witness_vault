@@ -102,9 +102,9 @@
 				</div><!--/.form-group-->
             </div><!--/.col-md-3-->
             <div class='col-md-2'>
-                <label for='{{ form.witness_statement_received.auto_id }}'>Statement Received?</label>
-                <div class='form-group {% if form.witness_statement_received.errors %} has-error {% endif %}'>
-                    {{ form.witness_statement_received }}
+                <label for='{{ form.statement.auto_id }}'>Statement Received?</label>
+                <div class='form-group {% if form.statement.errors %} has-error {% endif %}'>
+                    {{ form.statement }}
                 </div><!--/.form-group-->
             </div><!--/.col-md-2-->
             <div class='col-md-3'>
@@ -184,9 +184,9 @@
                                             <tr>
                                                 <th>Document ID</th>
 												<th>Document Type</th>
-												<th>Reference Number</th>
-												<th>Title</th>
-												<th>Expiry Date</th>
+												<th>Summary</th>
+												<th>Author</th>
+												<th>Received Date</th>
 												<th>Status</th>
 												<th>Actions</th>
 											</tr>
@@ -196,11 +196,11 @@
                                             <tr>
                                                 <td>{{ document.document_number }}</td>
 												<td>{{ document.document_type }}</td>
-												<td>{{ document.reference_num }}</td>
-												<td>{{ document.title }}</td>
-												<td>{{ document.expiry_date }}</td>
+												<td>{{ document.summary }}</td>
+												<td>{{ document.author }}</td>
+												<td>{{ document.received_date }}</td>
 												<td>{{ document.status }}</td>
-												<td><a href="{% url 'modify_document' pk=document.pk %}">
+												<td><a href=''>
                                                     <span class='glyphicon glyphicon-folder-open'></span></a></td>
                                             </tr>
                                             {% endfor %}
@@ -243,13 +243,13 @@
                           {% for interaction in interactions %}
                             <tr>
                               <td>{{ interaction.interaction_number }}</td>
-                              <td>{{ interaction.interactor_name }}</td>
-                              <td>{{ interaction.relationship_to_site }}</td>
+                              <td>{{ interaction.interactor }}</td>
+                              <td>{{ interaction.relationship }}</td>
                               <td>{{ interaction.phone }}</td>
                               <td>{{ interaction.interaction_type }}</td>
                               <td>{{ interaction.interaction_method }}</td>
                               <td>{{ interaction.interaction_date }}</td>
-                              <td><a href="{% url 'modify_interaction' pk=interaction.pk %}"data-toggle='tooltip' title='Open'><span class='glyphicon glyphicon-folder-open'></span></a></td>
+                              <td><a href='{% url 'modify_interaction' pk=interaction.pk %}'><span class='glyphicon glyphicon-folder-open'></span></a></td>
                             </tr>
                           {% endfor %}
                         </tbody>
@@ -295,7 +295,7 @@
                             <td>{{ operation.summary }}</td>
                             <td>{{ operation.coordinator_group }}</td>
                             <td>{{ operation.status }}</td>
-                            <td><a href="{% url 'modify_operation' pk=operation.pk %}" data-toggle='tooltip' title='Open'><span class='glyphicon glyphicon-folder-open'></span></a></td>
+                            <td><a href="" data-toggle='tooltip' title='Open'><span class='glyphicon glyphicon-folder-open'></span></a></td>
                           </tr>
                         {% endfor %}
                       </tbody>
@@ -332,8 +332,52 @@
                     <div class='panel-body'>
                         <form method='POST' 
                         name='witness_document'>
-                        {% csrf_token %}
-                        <div class='row'>
+                        {% csrf_token %}{{ document_form.errors }}
+
+                        <div class='col-md-4'>
+                            <label for='{{ document_form.document_type.auto_id }}'>Type<span class='required'>*</span></label>
+                            <div class='form-group {% if document_form.document_type.errors %} has-error {% endif %}'>
+                              {{ document_form.document_type }}
+                            </div><!--/.form-group-->
+                          </div><!--/.col-md-4-->
+                          <div class='col-md-6'>
+                            <label for='{{ document_form.author.auto_id }}'>Author<span class='required'>*</span></label>
+                            <div class='form-group {% if document_form.author.errors %} has-error {% endif %}'>
+                              {{ document_form.author }}
+                            </div><!--/.form-group-->
+                          </div><!--/.col-md-3--> 
+                          <div class='col-md-2'>
+                            <label for='{{ document_form.status.auto_id }}'>Status<span class='required'>*</span></label>
+                            <div class='form-group {% if document_form.status.errors %} has-error {% endif %}'>
+                              {{ document_form.status }}
+                            </div><!--/.form-group-->
+                          </div><!--/.col-md-2-->                                                                 
+                          <div class='col-md-4'>
+                            <label for='{{ document_form.issued_date.auto_id }}'>Issued Date<span class='required'>*</span></label>
+                            <div class='form-group {% if document_form.issued_date.errors %} has-error {% endif %}'>
+                              {{ document_form.issued_date }}
+                            </div><!--/.form-group-->
+                          </div><!--/.col-md-4-->                           
+                          <div class='col-md-4'>
+                            <label for='{{ document_form.received_date.auto_id }}'>Received Date<span class='required'>*</span></label>
+                            <div class='form-group {% if document_form.received_date.errors %} has-error {% endif %}'>
+                              {{ document_form.received_date }}
+                            </div><!--/.form-group-->
+                          </div><!--/.col-md-4--> 
+              
+                          <div class='col-md-12'>
+                            <label for='{{ document_form.summary.auto_id }}'>Summary<span class='required'>*</span></label>
+                            <div class='form-group {% if document_form.summary.errors %} has-error {% endif %}'>
+                              {{ document_form.summary }}
+                            </div><!--/.form-group-->
+                          </div><!--/.col-md-12--> 
+                          <div class='col-md-12'>
+                            <label for='{{ document_form.description.auto_id }}'>Detailed Description</label>
+                            <div class='form-group {% if document_form.description.errors %} has-error {% endif %}'>
+                              {{ document_form.description }}
+                            </div><!--/.form-group-->
+                          </div><!--/.col-md-12-->                           
+                          <div class='row'>
                             <div class='col-md-12'>
                                 <label for="{{ document_form.attachment.auto_id }}">Attachment</label>
                                 <input class='form-control'
@@ -342,13 +386,14 @@
                                 name="{{ document_form.attachment.html_name }}" 
                                 type="file">
                             </div><!--/.col-md-12-->
-                        </div><!--/.row-->
-                        
+                        </div><!--/.row-->                        
+
+
                         <div class="row">
                             <div class="col-md-12">
-                                <button class='btn btn-inverse btn-md modal-btn pull-right' 
-                                name='witness_document' 
-                                type='submit'>Save</button>
+                                <button type='submit' class='btn btn-inverse modal-btn pull-right' name='witness_document'>
+                                    <i class='glyphicon glyphicon-floppy-save' aria-hidden="true"></i>
+                                </button>
                             </div><!--/.col-md-12-->
                         </div><!--/.row-->
                     </form>
@@ -405,11 +450,11 @@
                         </div><!--/.row-->
                         <div class='row'>
                             <div class='col-md-8'>
-                                <label for='{{ interaction_form.interactor_name.auto_id }}'>Contact Name 
+                                <label for='{{ interaction_form.interactor.auto_id }}'>Contact Name 
                                     <span class='required'>*</span></label>
-                                    <div class='form-group {% if interaction_form.interactor_name.errors %} has-error {% endif %} has-feedback'>
-                                        {{ interaction_form.interactor_name }}
-                                        {% if interaction_form.interactor_name.errors %}
+                                    <div class='form-group {% if interaction_form.interactor.errors %} has-error {% endif %} has-feedback'>
+                                        {{ interaction_form.interactor }}
+                                        {% if interaction_form.interactor.errors %}
                                         <span class='glyphicon glyphicon-remove form-control-feedback'></span>
                                         {% endif %}
                                     </div><!--/.form-group-->
@@ -469,11 +514,13 @@
                             </div><!--/.row-->
                             <div class='row'>
                                 <div class='col-md-12'>
-                                    <label for='{{ interaction_form.narrative_description.auto_id }}'>Narrative Description</label>
-                                    {{ interaction_form.narrative_description }}
+                                    <label for='{{ interaction_form.description.auto_id }}'>Narrative Description</label>
+                                    {{ interaction_form.description }}
                                 </div><!--/.col-md-12-->
                             </div><!--/.row-->
-                            <button class='btn btn-inverse btn-md modal-btn pull-right' name='witness_interaction' type='submit'>Save</button>
+                            <button type='submit' class='btn btn-inverse modal-btn pull-right' name='witness_interaction'>
+                                <i class='glyphicon glyphicon-floppy-save' aria-hidden="true"></i>
+                            </button>
                         </form>
                     </div><!--/.panel-body-->
                 </div><!--/.panel-inverse-->

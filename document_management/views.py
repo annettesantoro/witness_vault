@@ -7,10 +7,11 @@ from .forms import DocumentForm
 # Create your views here.
 
 def document_workbench(request):
-    return render(
-        request,
-        'document_management/document_workbench.html',
-        {'title': 'Document Management Workbench'})
+    documents = Document.objects.all()
+    return render(request,
+                  'document_management/document_workbench.html',
+                  {'documents': documents,
+                   'title': 'Document Management Workbench'})
 
 def new_document(request):
     form = DocumentForm()
@@ -20,10 +21,8 @@ def new_document(request):
             document = form.save(commit=False)
             document.created_by = request.user
             document.created_date = timezone.now()
-            if document.parent_id == '':
-                document.parent_id = None
             document.save()
-            document.document_number = "W - " + str(document.id)
+            document.document_number = "D - " + str(document.id)
             document.save()
             messages.success(request, 'New Document Has Been Created', extra_tags='modify modify_document/' + str(document.id))
             return redirect(document_workbench)
@@ -35,10 +34,8 @@ def new_document(request):
                   'document_management/document.html',
                   {'form': form,
                    'title': 'New Document'})
-   
 
-
-def modify_document(request, pk):
+def modify_document(request, pk):   
     # Query Sets
     document = get_object_or_404(Document, pk=pk)
     if request.method == "POST" and "master" in request.POST:
@@ -48,9 +45,7 @@ def modify_document(request, pk):
             document = form.save(commit=False)
             document.modified_by = request.user
             document.modified_date = timezone.now()
-            if document.parent_id == "": document.parent_id = None
-            document.save()
-            document.document_number = "D" + str(document.id)
+            document.document_number = "D-" + str(document.id)
             document.save()
             messages.success(request, 'Document Has Been Modified')
             return redirect(request.META['HTTP_REFERER'])
@@ -59,7 +54,7 @@ def modify_document(request, pk):
     else:
         form = DocumentForm(instance=document)
     return render(request,
-                  'document.html',
+                  'document_management/document.html',
                   {'form': form,
                    'document': document,
                    'title': 'Document ' + str(document.document_number)})        

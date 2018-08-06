@@ -5,11 +5,13 @@ from django.utils import timezone
 from .forms import InteractionForm
 # Create your views here.
 
+
 def interaction_workbench(request):
-    return render(
-        request,
-        'interaction_management/interaction_workbench.html',
-        {'title': 'Interaction Management Workbench'})
+    interactions = Interaction.objects.all()
+    return render(request,
+                  'interaction_management/interaction_workbench.html',
+                  {'interactions': interactions,
+                   'title': 'Interaction Management Workbench'})
 
 def new_interaction(request):
     form = InteractionForm()
@@ -19,8 +21,6 @@ def new_interaction(request):
             interaction = form.save(commit=False)
             interaction.created_by = request.user
             interaction.created_date = timezone.now()
-            if interaction.parent_id == '':
-                interaction.parent_id = None
             interaction.save()
             interaction.interaction_number = "W - " + str(interaction.id)
             interaction.save()
@@ -45,10 +45,8 @@ def modify_interaction(request, pk):
             interaction = form.save(commit=False)
             interaction.created_by = request.user
             interaction.modified_date = timezone.now()
-            if interaction.parent_id == '':
-                interaction.parent_id = None
             interaction.save()
-            interaction.interaction_number = "I" + str(interaction.id)
+            interaction.interaction_number = "I-" + str(interaction.id)
             interaction.save()
             return redirect(request.META['HTTP_REFERER'])
     else:
@@ -57,4 +55,4 @@ def modify_interaction(request, pk):
                   'interaction_management/interaction.html',
                   {'form': form,
                    'interaction': interaction,
-                   'title': ' Modify Interaction: ' + str(interaction.interaction_number)})
+                   'title': 'Modify Interaction: '})

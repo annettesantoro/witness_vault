@@ -12,14 +12,16 @@ class Interaction(models.Model):
     interactor = models.CharField(max_length=40, blank=True, null=True)                    
     summary = models.CharField(max_length=50, blank=True, null=True)
     description = models.CharField(max_length=60, blank=True, null=True)
-    primary_phone = models.CharField(max_length=60, blank=True, null=True)
+    phone = models.CharField(max_length=60, blank=True, null=True)
     email = models.CharField(max_length=40, blank=True, null=True)          
     status = models.CharField(max_length=40, blank=True, null=True)    
     created_by = models.CharField(max_length=60, blank=True, null=True)
-    created_date = models.CharField(max_length=60, blank=True, null=True)        
+    created_date = models.CharField(max_length=60, blank=True, null=True)
+    interaction_date = models.CharField(max_length=60, blank=True, null=True)
+    relationship = models.CharField(max_length=80, blank=True, null=True)                          
 
 def create(self):
     self.save()
 
 def __str__(self):
-    return'{}'.format(self.id)
+    return'{}'.format(self.interaction_number)

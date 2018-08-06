@@ -19,11 +19,11 @@ class DocumentForm(forms.ModelForm):
     status = (('New', 'New',),
     ('Active', 'Active'),
     ('Archive', 'Archive'))
-    parent_id = forms.CharField(
-        widget=forms.TextInput(
-            attrs={'class': 'form-control', 'readonly': 'readonly'}),
-            required=False
-            )
+    parent_id = forms.ModelChoiceField(
+            queryset=Document.objects.all(),
+            widget=forms.Select(attrs={'class': 'form-control'}),
+            empty_label='', 
+            required=False)
     document_number = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control'}),
             required=False
@@ -55,7 +55,7 @@ class DocumentForm(forms.ModelForm):
             'placeholder': 'mm/dd/yyyy'}),
             required=False
             )
-    narrative_description = forms.CharField(
+    description = forms.CharField(
         widget=forms.Textarea(
             attrs={'class': 'form-control summernote'}),
             required=False
@@ -69,5 +69,5 @@ class DocumentForm(forms.ModelForm):
     class Meta:
         model = Document
         fields = ('parent_id', 'document_type', 'status',
-                  'issued_date', 'author',
-                  'narrative_description', 'attachment', 'document_number', 'received_date', 'issued_date')
+                  'issued_date', 'author', 'description', 'attachment', 
+                  'document_number', 'received_date', 'issued_date')
