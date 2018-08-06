@@ -18,6 +18,7 @@ def witness_workbench(request):
         request,
         'witness_management/witness_workbench.html',
         {'witnesses': 'witnesses',
+        'witness': 'witness',
         'title': 'Witness Management Workbench'})
 
 def new_witness(request):
