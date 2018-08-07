@@ -52,7 +52,32 @@ def modify_interaction(request, pk):
     else:
         form = InteractionForm(instance=interaction)
     return render(request,
-                  'interaction_management/interaction.html',
-                  {'form': form,
-                   'interaction': interaction,
-                   'title': 'Modify Interaction: '})
+    'interaction_management/interaction.html',
+    {'interaction': interaction, 
+    'title': 'Modify Interaction: '})
+
+def modify_incident(request, pk):
+    # Query Sets
+    # Main Interaction Queries
+    interaction = get_object_or_404(Interaction, pk=pk)
+    # Modify Interaction
+    if request.method == "POST" and 'master' in request.POST:
+        form = InteractionForm(request.POST, instance=interaction)
+        if form.is_valid():
+            interaction = form.save(commit=False)
+            interaction.created_by = request.user
+            interaction.modified_date = timezone.now()
+            interaction.save()
+            oldInteraction = Interaction.objects.filter(id = interaction.id)[0]
+            interaction.interaction_number = "I-" + str(interaction.id)
+            interaction.save()
+            messages.success(request, 'Interaction No.' + ' ' + str(interaction.interaction_number) + ' ' + 'Has Been Modified')
+            return redirect(request.META['HTTP_REFERER'])            
+        else:
+            messages.error(request, 'Interaction Record Has Not Been Modified')
+    else:
+        form = InteractionForm(instance=interaction)
+    return render (request,'interaction_management/interaction.html',
+    {'form': form,
+    'modify': 'modify',
+    'title': 'Modify Interaction:  ' + str(interaction.interaction_number)})

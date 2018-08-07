@@ -6,11 +6,11 @@
         <div class='panel-heading clearfix'>
 			<div class='pull-right'>
                 <button type='submit' class='btn btn-inverse btn-md' name='master'>
-                    <i class='glyphicon glyphicon-floppy-save' aria-hidden="true" data-toggle='tooltip' title='Save File'></i>
+                    <i class='glyphicon glyphicon-floppy-save' aria-hidden='true' data-toggle='tooltip' title='Save File'></i>
                 </button>
-                <a href="">
+                <a href=''>
                     <button type='button' class='btn btn-inverse btn-md'>
-                        <i class='glyphicon glyphicon-folder-close' aria-hidden="true"data-toggle='tooltip' title='Close File'></i>
+                        <i class='glyphicon glyphicon-folder-close' aria-hidden='true'data-toggle='tooltip' title='Close File'></i>
                     </button>
                 </a>
             </div><!--/.pull-right-->
@@ -147,7 +147,7 @@
 
         </div><!--/.panel-body-->
     </div><!--/.panel panel-default-->
-    {% if modify in "modify" %}        
+    {% if modify in 'modify' %}        
     <div class='witness_tabs'>
         <nav>
             <ul class='nav nav-tabs'>
@@ -161,15 +161,15 @@
             <div id='witness_documents' class='tab-pane active'>
                 <div class='panel panel-default'>
                     <div class='panel-heading clearfix'>
-                        {% if modify in "modify" %}
+                        {% if modify in 'modify' %}
                         <div class='pull-right'>
-                            <a href="" button type='button' 
+                            <a href='' button type='button' 
                             class='btn btn-inverse btn-md' 
                             data-toggle='modal' 
                             data-toggle='tooltip' 
                             title='New' 
                             data-target='#witness_document'>
-                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span class='glyphicon glyphicon-pencil'></span>
                             </a>
                         </div><!--/.pull-right-->
                         {% endif %}
@@ -178,7 +178,7 @@
                     <div class='panel-body'>
                         <div class='row'>
                             <div class='col-md-12 col-sm-12 col-xs-12'>
-                                <div style="overflow-x:auto;">
+                                <div style='overflow-x:auto;'>
                                     <table class='datatable table table-hover'>
                                         <thead>
                                             <tr>
@@ -217,7 +217,7 @@
                 <div class='panel-heading clearfix'>
                     {% if modify in 'modify' %}
                     <div class='pull-right'>
-                      <a href="" button type='button' class='btn btn-inverse btn-md' data-toggle='modal' data-toggle='tooltip' title='New Interaction' data-target='#witness_interaction'><span class="glyphicon glyphicon-pencil"></span></a>
+                      <a href='' button type='button' class='btn btn-inverse btn-md' data-toggle='modal' data-toggle='tooltip' title='New Interaction' data-target='#witness_interaction'><span class='glyphicon glyphicon-pencil'></span></a>
                      </div><!--/.pull-right-->
                     {% endif %}
                   <h3 class='panel-title'>Interaction History</h3>
@@ -225,7 +225,7 @@
                 <div class='panel-body'>
                   <div class='row'>
                     <div class='col-md-12 col-sm-12 col-xs-12'>
-                    <div style="overflow-x:auto;">
+                    <div style='overflow-x:auto;'>
                       <table class='datatable table table-hover'>
                         <thead>
                           <tr>
@@ -249,7 +249,7 @@
                               <td>{{ interaction.interaction_type }}</td>
                               <td>{{ interaction.interaction_method }}</td>
                               <td>{{ interaction.interaction_date }}</td>
-                              <td><a href='{% url 'modify_interaction' pk=interaction.pk %}'><span class='glyphicon glyphicon-folder-open'></span></a></td>
+                              <td><a href='{% url 'modify_interaction' pk=interaction.pk %}' data-toggle='tooltip' title='Open'><span class='glyphicon glyphicon-folder-open'></span></a></td>
                             </tr>
                           {% endfor %}
                         </tbody>
@@ -263,9 +263,9 @@
         <div id='witness_operations' class='tab-pane fade'>
             <div class='panel panel-default'>
               <div class='panel-heading clearfix'>
-                {% if modify in "modify" %}
+                {% if modify in 'modify' %}
                   <div class='pull-right'>
-                   <a href="" button type='button' class='btn btn-inverse btn-md' data-toggle='modal' data-toggle='tooltip' title='New Operation' data-target='#witness_operation'><span class="glyphicon glyphicon-pencil"></span></a>
+                   <a href='' button type='button' class='btn btn-inverse btn-md' data-toggle='modal' data-toggle='tooltip' title='New Operation' data-target='#witness_operation'><span class='glyphicon glyphicon-pencil'></span></a>
                   </div><!--/.pull-right-->
                 {% endif %}
                 <h3 class='panel-title'>Operations History</h3>
@@ -273,7 +273,7 @@
               <div class='panel-body'>
                 <div class='row'>
                   <div class='col-md-12 col-sm-12 col-xs-12'>
-                   <div style="overflow-x:auto;">
+                   <div style='overflow-x:auto;'>
                     <table class='datatable table table-hover'>
                       <thead>
                         <tr>
@@ -295,7 +295,7 @@
                             <td>{{ operation.summary }}</td>
                             <td>{{ operation.coordinator_group }}</td>
                             <td>{{ operation.status }}</td>
-                            <td><a href="" data-toggle='tooltip' title='Open'><span class='glyphicon glyphicon-folder-open'></span></a></td>
+                            <td><a href='' data-toggle='tooltip' title='Open'><span class='glyphicon glyphicon-folder-open'></span></a></td>
                           </tr>
                         {% endfor %}
                       </tbody>
@@ -310,7 +310,7 @@
     {% endif %} <!--/.hide tabs for form that is new-->   
 </form>
 <!-- Relationship MODALS -->
-{% if modify in "modify" %}
+{% if modify in 'modify' %}
     <div id='witness_document' 
         class='modal fade' 
         tabindex='-1' 
@@ -379,20 +379,20 @@
                           </div><!--/.col-md-12-->                           
                           <div class='row'>
                             <div class='col-md-12'>
-                                <label for="{{ document_form.attachment.auto_id }}">Attachment</label>
+                                <label for='{{ document_form.attachment.auto_id }}'>Attachment</label>
                                 <input class='form-control'
-                                id="{{ document_form.attachment.auto_id }}" 
-                                maxlength="{{ document_form.attachment.field.max_length }}"
-                                name="{{ document_form.attachment.html_name }}" 
-                                type="file">
+                                id='{{ document_form.attachment.auto_id }}' 
+                                maxlength='{{ document_form.attachment.field.max_length }}'
+                                name='{{ document_form.attachment.html_name }}' 
+                                type='file'>
                             </div><!--/.col-md-12-->
                         </div><!--/.row-->                        
 
 
-                        <div class="row">
-                            <div class="col-md-12">
+                        <div class='row'>
+                            <div class='col-md-12'>
                                 <button type='submit' class='btn btn-inverse modal-btn pull-right' name='witness_document'>
-                                    <i class='glyphicon glyphicon-floppy-save' aria-hidden="true"></i>
+                                    <i class='glyphicon glyphicon-floppy-save' aria-hidden='true'></i>
                                 </button>
                             </div><!--/.col-md-12-->
                         </div><!--/.row-->
@@ -483,7 +483,7 @@
                                     <div class='form-group {% if interaction_form.phone.errors %} has-error {% endif %} has-feedback'>
                                         {{ interaction_form.phone }}
                                         {% if interaction_form.phone.errors %}
-                                        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                                        <span class='glyphicon glyphicon-remove form-control-feedback'></span>
                                         {% endif %}
                                     </div><!--/.form-group-->
                                 </div><!--/.col-md-4-->
@@ -494,7 +494,7 @@
                                     <div class='form-group {% if interaction_form.phone.errors %} has-error {% endif %} has-feedback'>
                                         {{ interaction_form.direction }}
                                         {% if interaction_form.direction.errors %}
-                                        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                                        <span class='glyphicon glyphicon-remove form-control-feedback'></span>
                                         {% endif %}
                                     </div><!--/.form-group-->
                                 </div><!--/.col-md-4-->
@@ -519,7 +519,7 @@
                                 </div><!--/.col-md-12-->
                             </div><!--/.row-->
                             <button type='submit' class='btn btn-inverse modal-btn pull-right' name='witness_interaction'>
-                                <i class='glyphicon glyphicon-floppy-save' aria-hidden="true"></i>
+                                <i class='glyphicon glyphicon-floppy-save' aria-hidden='true'></i>
                             </button>
                         </form>
                     </div><!--/.panel-body-->
@@ -530,10 +530,10 @@
     {% endif %}
     <!-- End Of Relationship Modals -->
 </div><!--/.wraper container-fluid-->
-<script type="text/javascipt">
-    document.getElementById("activity_hidden").style.display = "none";
+<script type='text/javascipt'>
+    document.getElementById('activity_hidden').style.display = 'none';
     $(document).ready(function(){
-        var hidden = $(".hidden");
+        var hidden = $('.hidden');
         $(hidden).hide();
     });
 </script>

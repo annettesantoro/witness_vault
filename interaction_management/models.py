@@ -1,10 +1,11 @@
 from django.db import models
+from witness_management.models import Witness
 
 # Create your models here.
 
 class Interaction(models.Model):
     id = models.AutoField(primary_key=True)
-    parent_id = models.CharField(max_length=20, blank=True, null=True)
+    parent_id = models.ForeignKey(Witness, on_delete=models.CASCADE, related_name='wit_inter', blank=True, null=True)
     interaction_number = models.CharField(max_length=20, blank=True, null=True)
     direction = models.CharField(max_length=40, blank=True, null=True)
     interaction_type = models.CharField(max_length=40, blank=True, null=True)
@@ -24,4 +25,4 @@ def create(self):
     self.save()
 
 def __str__(self):
-    return'{}'.format(self.interaction_number)
+    return'{}'.format(self.id)
