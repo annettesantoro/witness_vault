@@ -7,20 +7,25 @@ from django.views.generic import TemplateView
 
 def timeout(request):
     return render(request,
-                  'home/timeout.html',
+                  'core/timeout.html',
                   {'title': 'Time Out'})
+
+def login(request):
+    return render(request,
+                  'core/login.html',
+                  {'title': 'Log In'})                  
 
 def logout(request):
     return render(request,
-                  'home/logout.html',
+                  'core/logout.html',
                   {'title': 'Log Out'})
 
 def home(request):
     return render(request,
-                  'home/index.html',
+                  'core/index.html',
                   {'title': 'Home'})
 
 def welcome(request):
     return render(request,
-                  'home/welcome.html',
+                  'core/welcome.html',
                   {'title': 'Welcome'})

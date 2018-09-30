@@ -16,19 +16,19 @@ urlpatterns = [
         r'^$', 
         views.welcome, 
         name='welcome'),
-    
-    url(
-        r'^welcome$', 
-        views.welcome, 
-        name='welcome'),
-    
+
     url(
         r'^$', 
         views.timeout, 
         name='timeout'),
     
     url(
-        r'^timeout$', 
-        views.timeout, 
-        name='timeout'),
+        r'^logout$', 
+        views.logout, 
+        name='logout'),
+
+    url(
+        r'^login$', 
+        views.login, 
+        name='login'),        
     ]

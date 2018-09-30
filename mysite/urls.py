@@ -18,6 +18,7 @@ from django.conf.urls import include, url
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    url(r'^core/', include('core.urls')),    
     url(r'^witness_management/', include('witness_management.urls')), 
     url(r'^document_management/', include('document_management.urls')),
     url(r'^interaction_management/', include('interaction_management.urls')),

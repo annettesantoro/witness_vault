@@ -1,5 +1,5 @@
 from django import forms
-from .models import Witness
+from .models import Witness, Activity
 from document_management.forms import DocumentForm
 from interaction_management.forms import InteractionForm
 
@@ -161,3 +161,112 @@ class WitnessForm(forms.ModelForm):
         fields = ('witness_number', 'witness_type', 'status', 'mechanism', 'case', 'first_name', 'middle_name', 'last_name', 
         'dob', 'gender', 'address', 'city', 'province', 'country', 'pc', 'primary_phone', 'alternate_phone', 'email', 
         'manager_department', 'manager_assignee', 'coordinator_department', 'coordinator_assignee', 'relationship', 'investigator', 'case_status')                    
+
+
+class ActivityForm(forms.ModelForm):
+    activity_status = (('Inactive', 'Inactive',),
+        ('Pending', 'Pending',),
+        ('In Progress', 'In Progress',),
+        ('Completed', 'Completed',),
+        ('Cancelled', 'Cancelled'))
+    lifecycle_status = (('Inactive', 'Inactive',),
+        ('Active', 'Active',))        
+    activity_type = (('', '',),
+        ('Planning', 'Planning'),
+        ('Execution', 'Execution'),
+        ('Close Down', 'Close Down'))
+    priority = (('', '',),
+        ('High', 'High'),
+        ('Medium', 'Medium'),
+        ('Low', 'Low'))        
+    activity_type = forms.CharField(
+        widget=forms.Select(
+            attrs={'class': 'form-control'},
+            choices=activity_type
+            ),
+            required=False)
+    priority = forms.CharField(
+        widget=forms.Select(
+            attrs={'class': 'form-control'},
+            choices=priority
+            ),
+            required=False)            
+    activity_status = forms.CharField(
+        widget=forms.Select(
+            attrs={'class': 'form-control'},
+            choices=activity_status
+            ),
+            required=False)            
+    lifecycle_status = forms.CharField(
+        widget=forms.Select(
+            attrs={'class': 'form-control'},
+            choices=lifecycle_status
+            ),
+            required=False)   
+    sequence = forms.CharField(
+        widget=forms.NumberInput(
+        attrs={'class': 'form-control number'}),
+        required=False
+        )
+    summary = forms.CharField(
+        widget=forms.TextInput(
+        attrs={'class': 'form-control'}),
+        required=False
+        )
+    description = forms.CharField(
+        widget=forms.Textarea(
+        attrs={'class': 'form-control summernote'}),
+        required=False
+        )
+    manager_assignee = forms.CharField(
+        widget=forms.TextInput(
+        attrs={'class': 'form-control'}),
+        required=False
+        )
+    coordinator_assignee = forms.CharField(
+        widget=forms.TextInput(
+        attrs={'class': 'form-control'}),
+        required=False
+        )
+    act_start_date = forms.CharField(
+        widget=forms.TextInput(
+        attrs={'class': 'form-control datepicker', 'placeholder': 'mm/dd/yyyy'}),
+        required=False)
+    act_start_time = forms.CharField(
+        widget=forms.TextInput(
+        attrs={'class': 'form-control time', 'placeholder': 'HH:MM'}),
+        required=False)
+    act_end_date = forms.CharField(
+        widget=forms.TextInput(
+        attrs={'class': 'form-control datepicker', 'placeholder': 'mm/dd/yyyy'}),
+        required=False)
+    act_end_time = forms.CharField(
+        widget=forms.TextInput(
+        attrs={'class': 'form-control time', 'placeholder': 'HH:MM'}),
+        required=False)
+    sched_start_date = forms.CharField(
+        widget=forms.TextInput(
+        attrs={'class': 'form-control datepicker', 'placeholder': 'mm/dd/yyyy'}),
+        required=False)
+    sched_start_time = forms.CharField(
+        widget=forms.TextInput(
+        attrs={'class': 'form-control time', 'placeholder': 'HH:MM'}),
+        required=False)
+    sched_end_date = forms.CharField(
+        widget=forms.TextInput(
+        attrs={'class': 'form-control datepicker', 'placeholder': 'mm/dd/yyyy'}),
+        required=False)
+    sched_end_time = forms.CharField(
+        widget=forms.TextInput(
+        attrs={'class': 'form-control time', 'placeholder': 'HH:MM'}),
+        required=False)
+    witness_id = forms.ModelChoiceField(
+            queryset=Witness.objects.all(),
+            widget=forms.Select(attrs={'class': 'form-control'}),
+            empty_label='',
+            required=False)
+    class Meta:
+        model = Activity
+        fields =  ('sequence', 'activity_number', 'activity_type', 'activity_status', 'lifecycle_status', 'act_start_date', 'act_start_time', 'sched_start_date', 'sched_start_time',
+        'act_end_date', 'act_end_time', 'sched_end_date', 'sched_end_time', 'summary', 'description', 'priority', 'witness_id', 'manager_assignee',
+        'coordinator_assignee')

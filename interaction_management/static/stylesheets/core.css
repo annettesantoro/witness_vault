@@ -1,0 +1,76 @@
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+
+.btn-sq-lg {
+  width: 150px !important;
+  height: 150px !important;
+}
+
+.btn-sq {
+  width: 100px !important;
+  height: 100px !important;
+  font-size: 10px;
+}
+
+.btn-sq-sm {
+  width: 50px !important;
+  height: 50px !important;
+  font-size: 10px;
+}
+
+.btn-sq-xs {
+  width: 25px !important;
+  height: 25px !important;
+  padding:2px;
+}
+
+.glyphicon.glyphicon-floppy-disk {
+  font-size: 12px;
+  color: #00008B
+}
+
+.glyphicon.glyphicon-plus-sign {
+  padding: 6px 6px;
+  font-size: 20px;
+  color: #008000
+}
+
+.glyphicon.glyphicon-info {
+  font-size: 20px;
+  color: #0000CD
+}
+
+.glyphicon.glyphicon-minus-sign {
+  font-size: 20px;
+  color: #FF0000
+}
+
+.glyphicon.glyphicon-folder-open {
+  font-size: 20px;
+  color: #000080
+  padding: 6px 6px;
+}

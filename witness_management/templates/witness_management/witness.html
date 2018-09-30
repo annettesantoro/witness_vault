@@ -154,7 +154,7 @@
                 <li class='active'>
                     <a data-toggle='tab' href='#witness_documents'>Documents</a></li>
                 <li><a data-toggle='tab' href='#witness_interactions'>Interactions</a></li>
-                <li><a data-toggle='tab' href='#operations'>Activities</a></li>
+                <li><a data-toggle='tab' href='#witness_activities'>Activities</a></li>
             </ul>
         </nav>
         <div class='tab-content'>
@@ -200,8 +200,7 @@
 												<td>{{ document.author }}</td>
 												<td>{{ document.received_date }}</td>
 												<td>{{ document.status }}</td>
-												<td><a href=''>
-                                                    <span class='glyphicon glyphicon-folder-open'></span></a></td>
+                                                <td><a href="{% url 'modify_document' pk=document.pk %}"><span class='glyphicon glyphicon-folder-open'></span></a></td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
@@ -249,7 +248,7 @@
                               <td>{{ interaction.interaction_type }}</td>
                               <td>{{ interaction.interaction_method }}</td>
                               <td>{{ interaction.interaction_date }}</td>
-                              <td><a href='{% url 'modify_interaction' pk=interaction.pk %}' data-toggle='tooltip' title='Open'><span class='glyphicon glyphicon-folder-open'></span></a></td>
+                              <td><a href="{% url 'modify_interaction' pk=interaction.pk %}"><span class='glyphicon glyphicon-folder-open'></span></a></td>
                             </tr>
                           {% endfor %}
                         </tbody>
@@ -260,15 +259,15 @@
                 </div><!--/.panel-body-->
               </div><!--/.panel panel-default-->
               </div><!--/#interactions tab-->        
-        <div id='witness_operations' class='tab-pane fade'>
+        <div id='witness_activities' class='tab-pane fade'>
             <div class='panel panel-default'>
               <div class='panel-heading clearfix'>
                 {% if modify in 'modify' %}
                   <div class='pull-right'>
-                   <a href='' button type='button' class='btn btn-inverse btn-md' data-toggle='modal' data-toggle='tooltip' title='New Operation' data-target='#witness_operation'><span class='glyphicon glyphicon-pencil'></span></a>
+                    <a href='' button type='button' class='btn btn-inverse btn-md' data-toggle='modal' data-toggle='tooltip' title='New Activity' data-target='#witness_activity'><span class='glyphicon glyphicon-pencil'></span></a>
                   </div><!--/.pull-right-->
                 {% endif %}
-                <h3 class='panel-title'>Operations History</h3>
+                <h3 class='panel-title'>Activity History</h3>
               </div><!--/.panel-heading-->
               <div class='panel-body'>
                 <div class='row'>
@@ -278,8 +277,8 @@
                       <thead>
                         <tr>
                           <th>Seq</th>
-                          <th>Op ID</th>
-                          <th>Operation Type</th>
+                          <th>ID</th>
+                          <th>Type</th>
                           <th>Summary</th>
                           <th>Assignee Group</th>
                           <th>Status</th>
@@ -289,12 +288,12 @@
                       <tbody>
                         {% for operation in operations %}
                           <tr>
-                            <td>{{ operation.seq }}</td>
-                            <td>{{ operation.oper_num }}</td>
-                            <td>{{ operation.oper_type }}</td>
-                            <td>{{ operation.summary }}</td>
-                            <td>{{ operation.coordinator_group }}</td>
-                            <td>{{ operation.status }}</td>
+                            <td>{{ activity.sequence }}</td>
+                            <td>{{ activity.activity_number }}</td>
+                            <td>{{ activity.activity_type }}</td>
+                            <td>{{ activity.summary }}</td>
+                            <td>{{ activity.coordinator_assignee }}</td>
+                            <td>{{ activity.activity_status }}</td>
                             <td><a href='' data-toggle='tooltip' title='Open'><span class='glyphicon glyphicon-folder-open'></span></a></td>
                           </tr>
                         {% endfor %}
@@ -333,7 +332,6 @@
                         <form method='POST' 
                         name='witness_document'>
                         {% csrf_token %}{{ document_form.errors }}
-
                         <div class='col-md-4'>
                             <label for='{{ document_form.document_type.auto_id }}'>Type<span class='required'>*</span></label>
                             <div class='form-group {% if document_form.document_type.errors %} has-error {% endif %}'>
@@ -527,6 +525,74 @@
             </div><!--/.modal-content-->
         </div><!--/.modal-dialog-->
     </div><!--/#witness_interaction-->
+    <div id='witness_activity' 
+        class='modal fade' 
+        tabindex='-1' 
+        role='dialog' 
+        aria-labelledby='WitnessActivity' 
+        aria-hidden='true' 
+        style='display: none;'>
+        <div class='modal-dialog modal-lg'>
+            <div class='modal-content p-0 b-0'>
+                <div class='panel panel-color panel-inverse'>
+                    <div class='panel-heading'>
+                        <button type='button' 
+                        class='close' 
+                        data-dismiss='modal' 
+                        aria-hidden='true' 
+                        style='color: white;'>x</button>
+                        <h3 class='panel-title'>Activity</h3>
+                    </div><!--/.panel-heading-->
+                    <div class='panel-body'>
+                        <form method='POST' 
+                        name='witness_activity'>
+                        {% csrf_token %}{{ activity_form.errors }}
+                        <div class='col-md-4'>
+                            <label for='{{ activity_form.activity_type.auto_id }}'>Type<span class='required'>*</span></label>
+                            <div class='form-group {% if activity_form.activity_type.errors %} has-error {% endif %}'>
+                              {{ activity_form.activity_type }}
+                            </div><!--/.form-group-->
+                          </div><!--/.col-md-4-->
+                          <div class='col-md-4'>
+                            <label for='{{ activity_form.priority.auto_id }}'>Priority<span class='required'>*</span></label>
+                            <div class='form-group {% if activity_form.priority.errors %} has-error {% endif %}'>
+                              {{ activity_form.priority }}
+                            </div><!--/.form-group-->
+                          </div><!--/.col-md-4-->
+                          <div class='col-md-4'>
+                            <label for='{{ activity_form.activity_status.auto_id }}'>Status<span class='required'>*</span></label>
+                            <div class='form-group {% if activity_form.activity_status.errors %} has-error {% endif %}'>
+                              {{ activity_form.activity_status }}
+                            </div><!--/.form-group-->
+                          </div><!--/.col-md-4-->                            
+                          <div class='col-md-12'>
+                            <label for='{{ activity_form.summary.auto_id }}'>Summary<span class='required'>*</span></label>
+                            <div class='form-group {% if activity_form.summary.errors %} has-error {% endif %}'>
+                              {{ activity_form.summary }}
+                            </div><!--/.form-group-->
+                          </div><!--/.col-md-12--> 
+                          <div class='col-md-12'>
+                            <label for='{{ activity_form.description.auto_id }}'>Description<span class='required'>*</span></label>
+                            <div class='form-group {% if activity_form.description.errors %} has-error {% endif %}'>
+                              {{ activity_form.description }}
+                            </div><!--/.form-group-->
+                          </div><!--/.col-md-3-->                                                    
+                         </div><!--/.row-->                        
+                        <div class='row'>
+                            <div class='col-md-12'>
+                                <button type='submit' class='btn btn-inverse modal-btn pull-right' name='witness_activity'>
+                                    <i class='glyphicon glyphicon-floppy-save' aria-hidden='true'></i>
+                                </button>
+                            </div><!--/.col-md-12-->
+                        </div><!--/.row-->
+                    </form>
+                </div><!--/.panel-body-->
+            </div><!--/.panel-inverse-->
+        </div><!--/.modal-content-->
+    </div><!--/.modal-dialog-->
+</div><!--/#witness_activity-->
+
+
     {% endif %}
     <!-- End Of Relationship Modals -->
 </div><!--/.wraper container-fluid-->

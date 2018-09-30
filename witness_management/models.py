@@ -35,8 +35,39 @@ class Witness(models.Model):
     investigator = models.CharField(max_length=100, blank=True, null=True)
     case_status = models.CharField(max_length=30, blank=True, null=True)                          
 
-def create(self):
-    self.save()
+    def create(self):
+        self.save()
 
-def __str__(self):
-    return'{}'.format(self.witness_id)            
+    def __str__(self):
+        return'{}'.format(self.witness_number) 
+
+class Activity(models.Model):
+    id = models.AutoField(primary_key=True)
+    sequence = models.CharField(max_length=6, blank=True, null=True)
+    priority = models.CharField(max_length=10, blank=True, null=True)                
+    witness_id = models.CharField(Witness, max_length=20, blank=True, null=True)
+    activity_number = models.CharField(max_length=6, blank=True, null=True)    
+    summary = models.CharField(max_length=20, blank=True, null=True)
+    description = models.CharField(max_length=100, blank=True, null=True)
+    activity_type = models.CharField(max_length=80, blank=True, null=True)     
+    activity_status = models.CharField(max_length=20, blank=True, null=True)
+    lifecycle_status = models.CharField(max_length=20, blank=True, null=True)       
+    sched_start_date = models.CharField(max_length=20, blank=True, null=True)
+    sched_start_time = models.CharField(max_length=20, blank=True, null=True)
+    sched_end_date = models.CharField(max_length=20, blank=True, null=True)
+    sched_end_time = models.CharField(max_length=20, blank=True, null=True)
+    act_start_date = models.CharField(max_length=20, blank=True, null=True)        
+    act_start_time = models.CharField(max_length=20, blank=True, null=True)
+    act_end_date = models.CharField(max_length=20, blank=True, null=True)
+    act_end_time = models.CharField(max_length=20, blank=True, null=True)
+    manager_assignee = models.CharField(max_length=120, blank=True, null=True)
+    coordinator_assignee = models.CharField(max_length=120, blank=True, null=True)
+    created_by = models.CharField(max_length=80, blank=True, null=True)
+    created_date = models.CharField(max_length=80, blank=True, null=True)
+                    
+
+    def create(self):
+        self.save()
+
+    def __str__(self):
+        return'{}'.format(self.activity_number)

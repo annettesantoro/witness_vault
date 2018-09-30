@@ -5,36 +5,37 @@ from django.utils import timezone
 from .forms import InteractionForm
 # Create your views here.
 
-
 def interaction_workbench(request):
     interactions = Interaction.objects.all()
     return render(request,
                   'interaction_management/interaction_workbench.html',
                   {'interactions': interactions,
-                   'title': 'Interaction Management Workbench'})
+                  'title': 'Interactions Repository'})
 
 def new_interaction(request):
+    # Query Sets
     form = InteractionForm()
     if request.method == "POST":
-        form = InteractionForm(request.POST)
+        form = InteractionForm(request.POST, request.FILES)
         if form.is_valid():
             interaction = form.save(commit=False)
             interaction.created_by = request.user
+            interaction.parent_id = interaction.id            
             interaction.created_date = timezone.now()
             interaction.save()
-            interaction.interaction_number = "W - " + str(interaction.id)
+            interaction.interaction_number = "I" + str(interaction.id)
             interaction.save()
-            messages.success(request, 'New Interaction Has Been Created', extra_tags='modify modify_interaction/' + str(interaction.id))
-            return redirect(interaction_workbench)
+            messages.success(request, 'New Interaction Has Been Created')
+            return redirect(request.META['HTTP_REFERER'])
         else:
-            messages.error(request, 'Interaction Has Not Been Created')
+            messages.error(request, 'New Interaction Has Not Been Created')
     else:
         form = InteractionForm()
     return render(request,
                   'interaction_management/interaction.html',
                   {'form': form,
                    'title': 'New Interaction'})
-                   
+
 def modify_interaction(request, pk):
     # Query Sets
     interaction = get_object_or_404(Interaction, pk=pk)
@@ -43,41 +44,18 @@ def modify_interaction(request, pk):
                                instance=interaction)
         if form.is_valid():
             interaction = form.save(commit=False)
-            interaction.created_by = request.user
+            interaction.modified_by = request.user
             interaction.modified_date = timezone.now()
+            if interaction.parent_id == '':
+                interaction.parent_id = None
             interaction.save()
-            interaction.interaction_number = "I-" + str(interaction.id)
+            interaction.interaction_number = "I" + str(interaction.id)
             interaction.save()
             return redirect(request.META['HTTP_REFERER'])
     else:
         form = InteractionForm(instance=interaction)
     return render(request,
-    'interaction_management/interaction.html',
-    {'interaction': interaction, 
-    'title': 'Modify Interaction: '})
-
-def modify_incident(request, pk):
-    # Query Sets
-    # Main Interaction Queries
-    interaction = get_object_or_404(Interaction, pk=pk)
-    # Modify Interaction
-    if request.method == "POST" and 'master' in request.POST:
-        form = InteractionForm(request.POST, instance=interaction)
-        if form.is_valid():
-            interaction = form.save(commit=False)
-            interaction.created_by = request.user
-            interaction.modified_date = timezone.now()
-            interaction.save()
-            oldInteraction = Interaction.objects.filter(id = interaction.id)[0]
-            interaction.interaction_number = "I-" + str(interaction.id)
-            interaction.save()
-            messages.success(request, 'Interaction No.' + ' ' + str(interaction.interaction_number) + ' ' + 'Has Been Modified')
-            return redirect(request.META['HTTP_REFERER'])            
-        else:
-            messages.error(request, 'Interaction Record Has Not Been Modified')
-    else:
-        form = InteractionForm(instance=interaction)
-    return render (request,'interaction_management/interaction.html',
-    {'form': form,
-    'modify': 'modify',
-    'title': 'Modify Interaction:  ' + str(interaction.interaction_number)})
+                  'interaction_management/interaction.html',
+                  {'form': form,
+                   'interaction': interaction,
+                   'title': ' Modify Interaction ' })

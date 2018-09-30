@@ -1,13 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 # Importing Of Models
-from .models import Witness
+from .models import Witness, Activity
 from document_management.models import Document
 from interaction_management.models import Interaction
 # Importing of timezone
 from django.utils import timezone
 # Importing of forms
-from .forms import WitnessForm
+from .forms import WitnessForm, ActivityForm
 from document_management.forms import DocumentForm
 from interaction_management.forms import InteractionForm
 # Create your views here.
@@ -47,11 +47,11 @@ def modify_witness(request, pk):
     witness = get_object_or_404(Witness, pk=pk)
     documents = Document.objects.filter(parent_id=witness.id)
     interactions = Interaction.objects.filter(parent_id=witness.id)
-    # operations = Operation.objects.filter(parent_id=witness.id)
+    activities = Activity.objects.filter(witness_id=witness.id)
     # Forms
     document_form = DocumentForm()
     interaction_form = InteractionForm()
-    #operation_form = OperationForm()
+    #activity_form = ActivityForm()
     # Modify Witness
     if request.method == "POST" and 'master' in request.POST:     
         form = WitnessForm(request.POST, instance=witness)
@@ -104,33 +104,88 @@ def modify_witness(request, pk):
             messages.error(request, 'New Interaction Has Not Been Created')
     else:
         interaction_form = InteractionForm()
-    # Create Relationship to Operation
-    #if request.method == "POST" and 'witness_operation' in request.POST:
-    #    operation_form = OperationForm(request.POST)
-    #   if operation_form.is_valid():
-    #        operation = operation_form.save(commit=False)
-    #        operation.created_by = request.user
-    #        operation.created_date = timezone.now()
-    #        operation.save()
-    #        operation.parent_id = witness.id
-    #        operation.operation_number = "OP-" + str(operation.id)
-    #        operation.save()
-    #        operation_form = OperationForm()
-    #        messages.success(request, 'New Operation Related to Witness Has Been Created', extra_tags='modify /operations_management/modify_operation/' + str(operation.id))
-    #        return redirect(request.META['HTTP_REFERER'])
-    #    else:
-    #        messages.error(request, 'New Operation Related to Witness Has Not Been Created')
-    #else:
-    #    operation_form = OperationForm()
+    # Create Relationship to Activity
+    if request.method == "POST" and 'witness_activity' in request.POST:
+        activity_form = ActivityForm(request.POST)
+        if activity_form.is_valid():
+            activity = activity_form.save(commit=False)
+            activity.created_by = request.user
+            activity.created_date = timezone.now()
+            activity.save()
+            activity.parent_id = witness.id
+            activity.activity_status = "New"            
+            activity.activity_number = "A-" + str(activity.id)
+            activity.save()
+            activity_form = ActivityForm()
+            messages.success(request, 'New Activity Related to Witness Has Been Created', extra_tags='modify /witness_management/modify_activity/' + str(activity.id))
+            return redirect(request.META['HTTP_REFERER'])
+        else:
+            messages.error(request, 'New Activity Related to Witness Has Not Been Created')
+    else:
+        activity_form = ActivityForm()
     return render(request,
                   'witness_management/witness.html',
                   {'form': form,
                    'document_form': document_form,
                    'interaction_form': interaction_form,
-                   #'operation_form': operation_form,
+                   'activity_form': activity_form,
                    'witness': witness,
                    'documents': documents,
                    'interactions': interactions,
-                   #'operations': operations,
+                   'activities': activities,
                    'modify': 'modify',
                    'title': 'Modify Witness:  ' + str(witness.witness_number)})
+
+def activity_workbench(request):
+    activities = Activity.objects.all()
+    return render(request,
+                  'interaction_management/interaction_workbench.html',
+                  {'activities': activities,
+                  'title': 'Interactions Repository'})
+
+def new_activity(request):
+    # Query Sets
+    form = ActivityForm()
+    if request.method == "POST":
+        form = ActivityForm(request.POST, request.FILES)
+        if form.is_valid():
+            activity = form.save(commit=False)
+            activity.created_by = request.user
+            activity.created_date = timezone.now()
+            activity.save()
+            activity.activity_number = "A" + str(activity.id)
+            activity.save()
+            messages.success(request, 'New Activity Has Been Created')
+            return redirect(request.META['HTTP_REFERER'])
+        else:
+            messages.error(request, 'New Activity Has Not Been Created')
+    else:
+        form = InteractionForm()
+    return render(request,
+                  'interaction_management/activity.html',
+                  {'form': form,
+                   'title': 'New Activity'})
+
+def modify_activity(request, pk):
+    # Query Sets
+    activity = get_object_or_404(Activity, pk=pk)
+    if request.method == "POST":
+        form = ActivityForm(request.POST, request.FILES,
+                               instance=activity)
+        if form.is_valid():
+            activity = form.save(commit=False)
+            activity.modified_by = request.user
+            activity.modified_date = timezone.now()
+            if activity.parent_id == '':
+                activity.parent_id = None
+            activity.save()
+            activity.activity_number = "A" + str(activity.id)
+            activity.save()
+            return redirect(request.META['HTTP_REFERER'])
+    else:
+        form = ActivityForm(instance=activity)
+    return render(request,
+                  'witness_management/activity.html',
+                  {'form': form,
+                   'activity': activity,
+                   'title': ' Modify Activity: ' })
