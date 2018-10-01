@@ -51,7 +51,11 @@ class Activity(models.Model):
     description = models.CharField(max_length=100, blank=True, null=True)
     activity_type = models.CharField(max_length=80, blank=True, null=True)     
     activity_status = models.CharField(max_length=20, blank=True, null=True)
-    lifecycle_status = models.CharField(max_length=20, blank=True, null=True)       
+    lifecycle_status = models.CharField(max_length=20, blank=True, null=True)
+    req_start_date = models.CharField(max_length=20, blank=True, null=True)
+    req_start_time = models.CharField(max_length=20, blank=True, null=True)
+    req_end_date = models.CharField(max_length=20, blank=True, null=True)
+    req_end_time = models.CharField(max_length=20, blank=True, null=True)           
     sched_start_date = models.CharField(max_length=20, blank=True, null=True)
     sched_start_time = models.CharField(max_length=20, blank=True, null=True)
     sched_end_date = models.CharField(max_length=20, blank=True, null=True)
@@ -64,7 +68,8 @@ class Activity(models.Model):
     coordinator_assignee = models.CharField(max_length=120, blank=True, null=True)
     created_by = models.CharField(max_length=80, blank=True, null=True)
     created_date = models.CharField(max_length=80, blank=True, null=True)
-                    
+    modified_by = models.CharField(max_length=80, blank=True, null=True)
+    modified_date = models.CharField(max_length=80, blank=True, null=True)
 
     def create(self):
         self.save()

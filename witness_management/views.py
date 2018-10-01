@@ -184,7 +184,7 @@ def modify_activity(request, pk):
                   'witness_management/activity.html',
                   {'form': form,
                    'activity': activity,
-                   'title': ' Modify Activity' })
+                   'title': 'Activity ' + str(activity.activity_number)})
 
 def document_repository(request):
     documents = Document.objects.all()
@@ -192,28 +192,6 @@ def document_repository(request):
                   'witness_management/document_repository.html',
                   {'documents': documents,
                    'title': 'Document Repository'})
-
-#def new_document(request):
-#    form = DocumentForm()
-#    if request.method == "POST":
-#        form = DocumentForm(request.POST)
-#        if form.is_valid():
-#            document = form.save(commit=False)
-#            document.created_by = request.user
-#            document.created_date = timezone.now()
-#            document.save()
-#            document.document_number = "D - " + str(document.id)
-#            document.save()
-#            messages.success(request, 'New Document Has Been Created', extra_tags='modify modify_document/' + str(document.id))
-#            return redirect(document_workbench)
-#        else:
-#            messages.error(request, 'Document Has Not Been Created')
-#    else:
-#        form = DocumentForm()
-#    return render(request,
-#                  'witness_management/document.html',
-#                  {'form': form,
-#                   'title': 'New Document'})
 
 def modify_document(request, pk):   
     # Query Sets
@@ -246,30 +224,6 @@ def interaction_repository(request):
                   'witness_management/interaction_repository.html',
                   {'interactions': interactions,
                   'title': 'Interactions Repository'})
-
-#def new_interaction(request):
-    # Query Sets
- #   form = InteractionForm()
- #   if request.method == "POST":
- #       form = InteractionForm(request.POST, request.FILES)
- #       if form.is_valid():
- #           interaction = form.save(commit=False)
- #           interaction.created_by = request.user
- #           interaction.parent_id = interaction.id            
- #           interaction.created_date = timezone.now()
- #           interaction.save()
- #           interaction.interaction_number = "I" + str(interaction.id)
- #           interaction.save()
- #           messages.success(request, 'New Interaction Has Been Created')
- #           return redirect(request.META['HTTP_REFERER'])
- #       else:
- #           messages.error(request, 'New Interaction Has Not Been Created')
- #   else:
- #       form = InteractionForm()
- #   return render(request,
- #                 'witness_management/interaction.html',
- #                 {'form': form,
- #                  'title': 'New Interaction'})
 
 def modify_interaction(request, pk):
     # Query Sets

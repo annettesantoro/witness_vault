@@ -234,6 +234,22 @@ class ActivityForm(forms.ModelForm):
         attrs={'class': 'form-control'}),
         required=False
         )
+    req_start_date = forms.CharField(
+        widget=forms.TextInput(
+        attrs={'class': 'form-control datepicker', 'placeholder': 'mm/dd/yyyy'}),
+        required=False)
+    req_start_time = forms.CharField(
+        widget=forms.TextInput(
+        attrs={'class': 'form-control time', 'placeholder': 'HH:MM'}),
+        required=False)
+    req_end_date = forms.CharField(
+        widget=forms.TextInput(
+        attrs={'class': 'form-control datepicker', 'placeholder': 'mm/dd/yyyy'}),
+        required=False)
+    req_end_time = forms.CharField(
+        widget=forms.TextInput(
+        attrs={'class': 'form-control time', 'placeholder': 'HH:MM'}),
+        required=False)
     act_start_date = forms.CharField(
         widget=forms.TextInput(
         attrs={'class': 'form-control datepicker', 'placeholder': 'mm/dd/yyyy'}),
@@ -270,7 +286,7 @@ class ActivityForm(forms.ModelForm):
         model = Activity
         fields =  ('sequence', 'activity_number', 'activity_type', 'activity_status', 'lifecycle_status', 'act_start_date', 'act_start_time', 'sched_start_date', 'sched_start_time',
         'act_end_date', 'act_end_time', 'sched_end_date', 'sched_end_time', 'summary', 'description', 'priority', 'parent_id', 'manager_assignee',
-        'coordinator_assignee')
+        'coordinator_assignee', 'req_start_date', 'req_start_time', 'req_end_date', 'req_end_time',)
 
 #################
 #  DOCUMENTFORM #
