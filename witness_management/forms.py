@@ -1,7 +1,9 @@
 from django import forms
-from .models import Witness, Activity
-from document_management.forms import DocumentForm
-from interaction_management.forms import InteractionForm
+from .models import Witness, Activity, Document, Interaction
+
+#################
+#  WITNESS FORM #
+#################
 
 class WitnessForm(forms.ModelForm):
     general = (('', '',),
@@ -162,6 +164,10 @@ class WitnessForm(forms.ModelForm):
         'dob', 'gender', 'address', 'city', 'province', 'country', 'pc', 'primary_phone', 'alternate_phone', 'email', 
         'manager_department', 'manager_assignee', 'coordinator_department', 'coordinator_assignee', 'relationship', 'investigator', 'case_status')                    
 
+#################
+#  ACTIVITY FORM #
+#################
+
 
 class ActivityForm(forms.ModelForm):
     activity_status = (('Inactive', 'Inactive',),
@@ -260,13 +266,182 @@ class ActivityForm(forms.ModelForm):
         widget=forms.TextInput(
         attrs={'class': 'form-control time', 'placeholder': 'HH:MM'}),
         required=False)
-    witness_id = forms.ModelChoiceField(
-            queryset=Witness.objects.all(),
-            widget=forms.Select(attrs={'class': 'form-control'}),
-            empty_label='',
-            required=False)
     class Meta:
         model = Activity
         fields =  ('sequence', 'activity_number', 'activity_type', 'activity_status', 'lifecycle_status', 'act_start_date', 'act_start_time', 'sched_start_date', 'sched_start_time',
-        'act_end_date', 'act_end_time', 'sched_end_date', 'sched_end_time', 'summary', 'description', 'priority', 'witness_id', 'manager_assignee',
+        'act_end_date', 'act_end_time', 'sched_end_date', 'sched_end_time', 'summary', 'description', 'priority', 'parent_id', 'manager_assignee',
         'coordinator_assignee')
+
+#################
+#  DOCUMENTFORM #
+#################
+
+
+class DocumentForm(forms.ModelForm):
+    document_type = (('', '',),
+    ('Application', 'Application',),
+    ('Engineering Assessment', 'Engineering Assessment'),
+    ('Engineering Drawing', 'Engineering Drawing'),
+    ('Environmental Assessment', 'Environmental Assessment'),
+    ('General Correspondence', 'General Correspondence'),
+    ('Inspection Report', 'Inspection Report'),
+    ('MSDS', 'MSDS'),
+    ('Other Document, NEC', 'Other Document, NEC'),
+    ('Permit', 'Permit'),
+    ('Photographs', 'Photographs'),
+    ('Procedure', 'Procedure'),
+    ('Regulatory Order', 'Regulatory Order'),
+    ('Witness Statement', 'Witness Statement'))
+    status = (('New', 'New',),
+    ('Active', 'Active'),
+    ('Archive', 'Archive'))
+    parent_id = forms.ModelChoiceField(
+            queryset=Document.objects.all(),
+            widget=forms.Select(attrs={'class': 'form-control'}),
+            empty_label='', 
+            required=False)
+    document_number = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+            required=False
+            )
+    document_type = forms.CharField(
+        widget=forms.Select(
+            attrs={'class': 'form-control'},
+            choices=document_type)
+            )                        
+    author = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control'}),
+            required=False
+            )
+    status = forms.CharField(
+        widget=forms.Select(
+            attrs={'class': 'form-control'},
+            choices=status)
+            )
+    issued_date = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control datepicker',
+            'placeholder': 'mm/dd/yyyy'}),
+            required=False
+            )
+    received_date = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control datepicker',
+            'placeholder': 'mm/dd/yyyy'}),
+            required=False
+            )
+    description = forms.CharField(
+        widget=forms.Textarea(
+            attrs={'class': 'form-control summernote'}),
+            required=False
+            )
+    summary = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control'})
+            )
+    attachment = forms.FileField(required=False)
+
+    class Meta:
+        model = Document
+        fields = ('parent_id', 'document_type', 'status',
+                  'issued_date', 'author', 'description', 'attachment', 
+                  'document_number', 'received_date', 'issued_date')
+
+#################
+#  INTERACTIONFORM #
+#################
+
+class InteractionForm(forms.ModelForm):
+    status = (('', '',),
+    ('Submitted', 'Submitted'),
+    ('Delete', 'Delete'))    
+    direction = (('', '',),
+    ('Inbound', 'Inbound'),
+    ('Outbound', 'Outbound'))
+    interaction_type = (('', '',),
+    ('Acolade', 'Acolade'),    
+    ('Complaint', 'Complaint'),
+    ('Provide Information', 'Provide Information'),
+    ('Request Information', 'Request Information'),        
+    ('Other, NEC', 'Other, NEC'))    
+    interaction_method = (('', '',),
+    ('Phone', 'Phone'),
+    ('Social Media', 'Social Media'),
+    ('Text', 'Text'))
+    relationship = (('', '',),
+    ('Aunty', 'Aunty'),
+    ('Brother', 'Brother'),
+    ('Co-worker', 'Co-Worker'),        
+    ('Father', 'Father'),
+    ('Grandmother', 'Grandmother'),
+    ('Grandfather', 'Grandfather'),            
+    ('Mother', 'Mother'),
+    ('Other', 'Other'),            
+    ('Sister', 'Sister'),
+    ('Supervisor', 'Supervisor'),    
+    ('No relationship', 'No Relationship'))    
+    relationship = forms.CharField(
+        widget=forms.Select(
+            attrs={'class': 'form-control'},
+            choices=relationship
+            ),
+            required=False)
+    direction = forms.CharField(
+        widget=forms.Select(
+            attrs={'class': 'form-control'},
+            choices=direction
+            ),
+            required=False)
+    interaction_type = forms.CharField(
+        widget=forms.Select(
+            attrs={'class': 'form-control'},
+            choices=interaction_type
+            ),
+            required=False)
+    interaction_method = forms.CharField(
+        widget=forms.Select(
+            attrs={'class': 'form-control'},
+            choices=interaction_method
+            ),
+            required=False)
+    interaction_date = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control datepicker'})
+            )
+    interactor = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control'}),
+            required=False
+            )
+    email = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control'}),
+            required=False
+            )
+    phone = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control'}),
+            required=False
+            )
+    summary = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control'})
+            )
+    description = forms.CharField(
+        widget=forms.Textarea(
+            attrs={'class': 'form-control summernote'}),
+            required=False
+            )
+    status = forms.CharField(
+        widget=forms.Select(
+            attrs={'class': 'form-control'},
+            choices=status
+            ),
+            required=False)
+    attachment = forms.FileField(required=False)            
+    class Meta:
+        model = Interaction
+        fields = ('phone', 'email', 'interaction_date', 'interaction_type',
+                  'interaction_method', 'summary', 'attachment', 'relationship',
+                  'description', 'interaction_number', 'direction', 'status')     

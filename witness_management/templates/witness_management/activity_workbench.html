@@ -1,0 +1,55 @@
+{% extends 'core/base.html' %}
+{% block content %}
+	<div class='wraper container-fluid'>
+		<div class='panel panel-default'>
+            <div class='panel-heading clearfix'>
+                <div class='pull-right'>
+                    <a href="">
+                        <button type='button' class='btn btn-inverse btn-md'>
+                            <i class='glyphicon glyphicon-minus' aria-hidden="true" data-toggle='tooltip' title='Close Workbench'></i>
+                        </button>
+                    </a>				
+                    </div><!--/.pull-right-->
+                    <h3 class='panel-title'>{{ title }}</h3>
+                </div><!--/.panel-heading clearfix-->
+                <div class='panel-body'>
+				    <div class='row'>
+					    <div class='col-md-12 col-sm-12 col-xs-12'>
+                            <div style="overflow-x:auto;">
+                                <table class='datatable table table-hover'>
+							    <thead>
+								    <tr>
+									    <th>ID</th>
+					            		<th>Witness ID</th>
+								    	<th>Activity Type</th>
+                                        <th>Summary</th>
+								    	<th>Scheduled Date</th>                                        
+								    	<th>Scheduled Time</th>
+								    	<th>Status</th>
+									    <th>Actions</th>
+							    	</tr>
+                                </thead>
+                                <tbody>
+                                    {% for activity in activities %}
+                                    <tr>
+                                        <td>{{ activity.activity_number }}</td>
+							    		<td>{{ activity.parent_id }}</td>
+								    	<td>{{ activity.activity_type }}</td>
+	    								<td>{{ activity.summary }}</td>
+                                        <td>{{ activity.sched_start_date }}</td>
+						    			<td>{{ activity.sched_start_time }}</td>                                        
+			    						<td>{{ activity.status }}</td>
+                                        <td><a href="{% url 'modify_activity' pk=activity.pk %}">
+                                            <span class='glyphicon glyphicon-folder-open'></span></a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+							    </tbody>
+    						</table>
+                        </div><!--/.overflow-x-->
+                    </div><!--/.col-md-12 col-sm-12 col-xs-12-->
+			    </div><!--/.row-->
+	    	</div><!--/.panel-body-->
+    	</div><!--/.panel .panel-default-->
+    </div><!--/.wraper .container-fluid-->
+    {% endblock %}

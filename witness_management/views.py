@@ -1,15 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 # Importing Of Models
-from .models import Witness, Activity
-from document_management.models import Document
-from interaction_management.models import Interaction
+from .models import Witness, Activity, Document, Interaction
 # Importing of timezone
 from django.utils import timezone
 # Importing of forms
-from .forms import WitnessForm, ActivityForm
-from document_management.forms import DocumentForm
-from interaction_management.forms import InteractionForm
+from .forms import WitnessForm, ActivityForm, DocumentForm, InteractionForm
 # Create your views here.
 
 def witness_workbench(request):
@@ -47,7 +43,7 @@ def modify_witness(request, pk):
     witness = get_object_or_404(Witness, pk=pk)
     documents = Document.objects.filter(parent_id=witness.id)
     interactions = Interaction.objects.filter(parent_id=witness.id)
-    activities = Activity.objects.filter(witness_id=witness.id)
+    activities = Activity.objects.filter(parent_id=witness.id)
     # Forms
     document_form = DocumentForm()
     interaction_form = InteractionForm()
@@ -139,9 +135,9 @@ def modify_witness(request, pk):
 def activity_workbench(request):
     activities = Activity.objects.all()
     return render(request,
-                  'interaction_management/interaction_workbench.html',
+                  'witness_management/activity_workbench.html',
                   {'activities': activities,
-                  'title': 'Interactions Repository'})
+                  'title': 'Activity Workbench'})
 
 def new_activity(request):
     # Query Sets
@@ -188,4 +184,113 @@ def modify_activity(request, pk):
                   'witness_management/activity.html',
                   {'form': form,
                    'activity': activity,
-                   'title': ' Modify Activity: ' })
+                   'title': ' Modify Activity' })
+
+def document_repository(request):
+    documents = Document.objects.all()
+    return render(request,
+                  'witness_management/document_repository.html',
+                  {'documents': documents,
+                   'title': 'Document Repository'})
+
+#def new_document(request):
+#    form = DocumentForm()
+#    if request.method == "POST":
+#        form = DocumentForm(request.POST)
+#        if form.is_valid():
+#            document = form.save(commit=False)
+#            document.created_by = request.user
+#            document.created_date = timezone.now()
+#            document.save()
+#            document.document_number = "D - " + str(document.id)
+#            document.save()
+#            messages.success(request, 'New Document Has Been Created', extra_tags='modify modify_document/' + str(document.id))
+#            return redirect(document_workbench)
+#        else:
+#            messages.error(request, 'Document Has Not Been Created')
+#    else:
+#        form = DocumentForm()
+#    return render(request,
+#                  'witness_management/document.html',
+#                  {'form': form,
+#                   'title': 'New Document'})
+
+def modify_document(request, pk):   
+    # Query Sets
+    document = get_object_or_404(Document, pk=pk)
+    if request.method == "POST" and "master" in request.POST:
+        form = DocumentForm(request.POST, request.FILES,
+                            instance=document)
+        if form.is_valid():
+            document = form.save(commit=False)
+            document.modified_by = request.user
+            document.modified_date = timezone.now()
+            document.document_number = "D-" + str(document.id)
+            document.save()
+            messages.success(request, 'Document Has Been Modified')
+            return redirect(request.META['HTTP_REFERER'])
+        else:
+            messages.error(request, 'Document Has Not Been Modified')
+    else:
+        form = DocumentForm(instance=document)
+    return render(request,
+                  'witness_management/document.html',
+                  {'form': form,
+                   'document': document,
+                   'title': 'Document ' + str(document.document_number)})
+
+
+def interaction_repository(request):
+    interactions = Interaction.objects.all()
+    return render(request,
+                  'witness_management/interaction_repository.html',
+                  {'interactions': interactions,
+                  'title': 'Interactions Repository'})
+
+#def new_interaction(request):
+    # Query Sets
+ #   form = InteractionForm()
+ #   if request.method == "POST":
+ #       form = InteractionForm(request.POST, request.FILES)
+ #       if form.is_valid():
+ #           interaction = form.save(commit=False)
+ #           interaction.created_by = request.user
+ #           interaction.parent_id = interaction.id            
+ #           interaction.created_date = timezone.now()
+ #           interaction.save()
+ #           interaction.interaction_number = "I" + str(interaction.id)
+ #           interaction.save()
+ #           messages.success(request, 'New Interaction Has Been Created')
+ #           return redirect(request.META['HTTP_REFERER'])
+ #       else:
+ #           messages.error(request, 'New Interaction Has Not Been Created')
+ #   else:
+ #       form = InteractionForm()
+ #   return render(request,
+ #                 'witness_management/interaction.html',
+ #                 {'form': form,
+ #                  'title': 'New Interaction'})
+
+def modify_interaction(request, pk):
+    # Query Sets
+    interaction = get_object_or_404(Interaction, pk=pk)
+    if request.method == "POST":
+        form = InteractionForm(request.POST, request.FILES,
+                               instance=interaction)
+        if form.is_valid():
+            interaction = form.save(commit=False)
+            interaction.modified_by = request.user
+            interaction.modified_date = timezone.now()
+            if interaction.parent_id == '':
+                interaction.parent_id = None
+            interaction.save()
+            interaction.interaction_number = "I" + str(interaction.id)
+            interaction.save()
+            return redirect(request.META['HTTP_REFERER'])
+    else:
+        form = InteractionForm(instance=interaction)
+    return render(request,
+                  'witness_management/interaction.html',
+                  {'form': form,
+                   'interaction': interaction,
+                   'title': ' Modify Interaction ' })                                              

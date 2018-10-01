@@ -286,7 +286,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        {% for operation in operations %}
+                        {% for activity in activities %}
                           <tr>
                             <td>{{ activity.sequence }}</td>
                             <td>{{ activity.activity_number }}</td>
@@ -294,7 +294,7 @@
                             <td>{{ activity.summary }}</td>
                             <td>{{ activity.coordinator_assignee }}</td>
                             <td>{{ activity.activity_status }}</td>
-                            <td><a href='' data-toggle='tooltip' title='Open'><span class='glyphicon glyphicon-folder-open'></span></a></td>
+                            <td><a href="{% url 'modify_activity' pk=activity.pk %}"><span class='glyphicon glyphicon-folder-open'></span></a></td>
                           </tr>
                         {% endfor %}
                       </tbody>

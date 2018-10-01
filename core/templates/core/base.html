@@ -9,9 +9,7 @@
     <title>
 			{% if title %}
         {{ title }}
-      {% else %}
-witnessVAULT
-			{% endif %}
+      {% else %} witnessVAULT {% endif %}
 			
     </title>
 		
@@ -115,7 +113,7 @@ witnessVAULT
     <aside class='left-panel'>
 			<!-- brand -->
     	<div class='logo'>
-				<a href='index.html' class='logo-expanded'>
+				<a href='' class='logo-expanded'>
 				<span class='nav-label'>witnessVAULT</span>
 				</a>
 			</div>
@@ -123,20 +121,13 @@ witnessVAULT
 			<!-- Navbar Start -->
 			<nav class='navigation'>
 				<ul class='list-unstyled'>
-          <li class='has-submenu'><a href='#'><i class='fa fa-phone' aria-hidden='True'></i> <span class='nav-label'>Document Management</span></a>
-						<ul class='list-unstyled'>
-								<li><a href='{% url 'document_workbench' %}' target=''>Document History</a></li>
-						</ul>
-					</li>				
-          <li class='has-submenu'><a href='#'><i class='fa fa-phone' aria-hidden='True'></i> <span class='nav-label'>Interaction Management</span></a>
-						<ul class='list-unstyled'>
-								<li><a href='{% url 'interaction_workbench' %}' target=''>Interaction History</a></li>
-						</ul>
-					</li>
           <li class='has-submenu'><a href='#'><i class='fa fa-eye' aria-hidden='True'></i> <span class='nav-label'>Witness Management</span></a>
 						<ul class='list-unstyled'>
 							<li><a href="" target=''>Witness Dashboard</a></li>
-							<li><a href="{% url 'witness_workbench' %}" target=''>Witness Workbench</a></li>										
+              <li><a href="{% url 'witness_workbench' %}" target=''>Witness Workbench</a></li>
+              <li><a href="{% url 'activity_workbench' %}" target=''>Activities Workbench</a></li>			              
+              <li><a href="{% url 'document_repository' %}" target=''>Document Repository</a></li>					
+							<li><a href="{% url 'interaction_repository' %}" target=''>Interactions Repository</a></li>					                            										
 						</ul>
 					</li>
 				</ul>

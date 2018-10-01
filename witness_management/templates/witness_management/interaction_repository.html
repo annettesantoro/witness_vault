@@ -1,0 +1,55 @@
+{% extends 'core/base.html' %}
+{% block content %}
+	<div class='wraper container-fluid'>
+		<div class='panel panel-default'>
+            <div class='panel-heading clearfix'>
+                <div class='pull-right'>
+                    <a href="{% url 'home' %}">
+                        <button type='button' class='btn btn-inverse btn-md'>
+                            <i class='glyphicon glyphicon-minus' aria-hidden="true"data-toggle='tooltip' title='Close Workbench'></i>
+                        </button>
+                    </a>				
+                    </div><!--/.pull-right-->
+                    <h3 class='panel-title'>{{ title }}</h3>
+                </div><!--/.panel-heading clearfix-->
+                <div class='panel-body'>
+				    <div class='row'>
+					    <div class='col-md-12 col-sm-12 col-xs-12'>
+                            <div style="overflow-x:auto;">
+                                <table class='datatable table table-hover'>
+							    <thead>
+								    <tr>
+									    <th>ID</th>
+					            		<th>Source ID</th>
+								    	<th>Type</th>
+                                        <th>Method</th>
+								    	<th>Interactor</th>                                        
+								    	<th>Date</th>
+								    	<th>Status</th>
+									    <th>Actions</th>
+							    	</tr>
+                                </thead>
+                                <tbody>
+                                    {% for interaction in interactions %}
+                                    <tr>
+                                        <td>{{ interaction.interaction_number }}</td>
+							    		<td>{{ interaction.parent_id }}</td>
+								    	<td>{{ interaction.interaction_type }}</td>
+	    								<td>{{ interaction.interaction_method }}</td>
+                                        <td>{{ interaction.interactor }}</td>
+						    			<td>{{ interaction.interaction_date }}</td>                                        
+			    						<td>{{ interaction.status }}</td>
+                                        <td><a href="{% url 'modify_interaction' pk=interaction.pk %}">
+                                            <span class='glyphicon glyphicon-folder-open'></span></a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+							    </tbody>
+    						</table>
+                        </div><!--/.overflow-x-->
+                    </div><!--/.col-md-12 col-sm-12 col-xs-12-->
+			    </div><!--/.row-->
+	    	</div><!--/.panel-body-->
+    	</div><!--/.panel .panel-default-->
+    </div><!--/.wraper .container-fluid-->
+    {% endblock %}
