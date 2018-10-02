@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     url(
-        r'^witness_workbench/$',
+        r'^$',
         views.witness_workbench,
         name='witness_workbench'),
     
@@ -25,7 +25,7 @@ urlpatterns = [
         views.modify_activity,
         name='modify_activity'),
 
-    url(r'^$',
+    url(r'^document_repository/$',
         views.document_repository,
         name='document_repository'),
 
@@ -33,7 +33,7 @@ urlpatterns = [
         views.modify_document,
         name='modify_document'),
 
-    url(r'^$',
+    url(r'^interaction_repository/$',
         views.interaction_repository,
         name='interaction_repository'),
 
