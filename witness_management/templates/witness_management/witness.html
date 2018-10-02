@@ -8,11 +8,6 @@
                 <button type='submit' class='btn btn-inverse btn-md' name='master'>
                     <i class='glyphicon glyphicon-floppy-save' aria-hidden='true' data-toggle='tooltip' title='Save File'></i>
                 </button>
-                <a href=''>
-                    <button type='button' class='btn btn-inverse btn-md'>
-                        <i class='glyphicon glyphicon-folder-close' aria-hidden='true'data-toggle='tooltip' title='Close File'></i>
-                    </button>
-                </a>
             </div><!--/.pull-right-->
           <h3 class='panel-title'>{{ title }}</h3>
         </div><!--/.panel-heading clearfix-->
@@ -229,8 +224,9 @@
                         <thead>
                           <tr>
                             <th>ID</th>
+                            <th>Direction</th>
                             <th>Name</th>
-                            <th>Relationship to Site</th>
+                            <th>Relationship </th>
                             <th>Phone</th>
                             <th>Type</th>
                             <th>Method</th>
@@ -242,6 +238,7 @@
                           {% for interaction in interactions %}
                             <tr>
                               <td>{{ interaction.interaction_number }}</td>
+                              <td>{{ interaction.direction }}</td>                              
                               <td>{{ interaction.interactor }}</td>
                               <td>{{ interaction.relationship }}</td>
                               <td>{{ interaction.phone }}</td>
@@ -541,30 +538,36 @@
                         data-dismiss='modal' 
                         aria-hidden='true' 
                         style='color: white;'>x</button>
-                        <h3 class='panel-title'>Activity</h3>
+                        <h3 class='panel-title'>New Activity</h3>
                     </div><!--/.panel-heading-->
                     <div class='panel-body'>
                         <form method='POST' 
                         name='witness_activity'>
                         {% csrf_token %}{{ activity_form.errors }}
+                        <div class='col-md-2'>
+                                <label for='{{ activity_form.sequence.auto_id }}'>Seq.<span class='required'>*</span></label>
+                                <div class='form-group {% if activity_form.sequence.errors %} has-error {% endif %}'>
+                                  {{ activity_form.sequence }}
+                                </div><!--/.form-group-->
+                              </div><!--/.col-md-2-->                          
                         <div class='col-md-4'>
                             <label for='{{ activity_form.activity_type.auto_id }}'>Type<span class='required'>*</span></label>
                             <div class='form-group {% if activity_form.activity_type.errors %} has-error {% endif %}'>
                               {{ activity_form.activity_type }}
                             </div><!--/.form-group-->
                           </div><!--/.col-md-4-->
-                          <div class='col-md-4'>
+                          <div class='col-md-3'>
                             <label for='{{ activity_form.priority.auto_id }}'>Priority<span class='required'>*</span></label>
                             <div class='form-group {% if activity_form.priority.errors %} has-error {% endif %}'>
                               {{ activity_form.priority }}
                             </div><!--/.form-group-->
-                          </div><!--/.col-md-4-->
-                          <div class='col-md-4'>
+                          </div><!--/.col-md-3-->
+                          <div class='col-md-3'>
                             <label for='{{ activity_form.activity_status.auto_id }}'>Status<span class='required'>*</span></label>
                             <div class='form-group {% if activity_form.activity_status.errors %} has-error {% endif %}'>
                               {{ activity_form.activity_status }}
                             </div><!--/.form-group-->
-                          </div><!--/.col-md-4-->                            
+                          </div><!--/.col-md-3-->                            
                           <div class='col-md-12'>
                             <label for='{{ activity_form.summary.auto_id }}'>Summary<span class='required'>*</span></label>
                             <div class='form-group {% if activity_form.summary.errors %} has-error {% endif %}'>
@@ -576,7 +579,38 @@
                             <div class='form-group {% if activity_form.description.errors %} has-error {% endif %}'>
                               {{ activity_form.description }}
                             </div><!--/.form-group-->
-                          </div><!--/.col-md-3-->                                                    
+                          </div><!--/.col-md-3-->
+                          <div class='col-md-6'>
+                                <label for='{{ activity_form.req_start_date.auto_id }}'>Req. Start Date<span class='required'>*</span></label>
+                                <div class='form-group {% if activity_form.req_start_date.errors %} has-error {% endif %}'>
+                                  {{ activity_form.req_start_date }}
+                                </div><!--/.form-group-->
+                              </div><!--/.col-md-6--> 
+                              <div class='col-md-6'>
+                                    <label for='{{ activity_form.req_start_time.auto_id }}'>Req. Start Time<span class='required'>*</span></label>
+                                    <div class='form-group {% if activity_form.req_start_time.errors %} has-error {% endif %}'>
+                                      {{ activity_form.req_start_time }}
+                                    </div><!--/.form-group-->
+                                  </div><!--/.col-md-6--> 
+                                  <div class='col-md-6'>
+                                        <label for='{{ activity_form.req_end_date.auto_id }}'>Req. End Date<span class='required'>*</span></label>
+                                        <div class='form-group {% if activity_form.req_end_date.errors %} has-error {% endif %}'>
+                                          {{ activity_form.req_end_date }}
+                                        </div><!--/.form-group-->
+                                      </div><!--/.col-md-6--> 
+                                      <div class='col-md-6'>
+                                            <label for='{{ activity_form.req_end_time.auto_id }}'>Req. End Time<span class='required'>*</span></label>
+                                            <div class='form-group {% if activity_form.req_end_time.errors %} has-error {% endif %}'>
+                                              {{ activity_form.req_end_time }}
+                                            </div><!--/.form-group-->
+                                          </div><!--/.col-md-6-->                                         
+                                          <div class='col-md-6'>
+                                                <label for='{{ activity_form.manager_assignee.auto_id }}'>Activity Manager<span class='required'>*</span></label>
+                                                <div class='form-group {% if activity_form.manager_assignee.errors %} has-error {% endif %}'>
+                                                  {{ activity_form.manager_assignee }}
+                                                </div><!--/.form-group-->
+                                              </div><!--/.col-md-6-->                                    
+                              
                          </div><!--/.row-->                        
                         <div class='row'>
                             <div class='col-md-12'>

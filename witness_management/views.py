@@ -71,7 +71,7 @@ def modify_witness(request, pk):
             document = document_form.save(commit=False)
             document.created_by = request.user
             document.created_date = timezone.now()
-            document.parent_id = witness.id               
+            document.parent_id = witness.id    
             document.save()
             document.document_number = "D - " + str(document.id)
             document.save()
