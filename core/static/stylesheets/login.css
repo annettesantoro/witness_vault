@@ -1,0 +1,84 @@
+html {
+	position: relative;
+	min-height: 100%;
+}
+body {
+  background: url("../img/pipeline.jpg") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-size: 14px;
+  font-family: calibri;
+	margin-bottom: 20px;
+}
+header nav.navbar-default {
+	background: none;
+	border-bottom: none;
+}
+
+.login-block {
+  margin: 0 auto;
+	width: 400px;
+}
+
+.login {
+  width: 300px;
+  background: white;
+  padding: 50px 45px 50px 45px;
+  margin: 0 auto;
+  display: block;
+  position: absolute;
+}
+
+h1 {
+  font-size: 60px;
+  color: #818181 !important;
+  opacity: 0.9;
+  margin: 0 0 5px -4px;
+  text-transform: uppercase;
+}
+
+input { 
+  width: 100%;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid #818181;
+  padding: 10px;
+  background: white;
+  text-align: center;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  
+  &:focus {
+    border: 3px solid #818181;
+  }
+}
+
+.button {
+  width: 100%;
+  background: #818181;
+  padding: 10px;
+  text-transform: uppercase;
+  text-align: center;
+  color: white;
+  display: block;
+  
+  &:hover {
+    background: rgb(255, 100, 0);
+  }
+}
+
+footer.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 3.5%;
+}
+footer.footer small.copywrite {
+	color: #333 !important;
+	font-size: 10px;
+	margin-right: 3px;
+}
