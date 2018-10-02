@@ -3,189 +3,211 @@
 	<div class='wraper container-fluid'>
 		<form method='POST' class='' novalidate>{% csrf_token %}
 			<div class='panel panel-default'>
-				<div class='panel-heading clearfix'>
-					<h3 class='panel-title'>{{title}}</h3>
+				<div class='panel-heading clearfix'><h3 class='panel-title'>{{title}}</h3>
 					<div class='pull-right'>
-						<button type='submit' class='btn btn-inverse btn-md' name='master'>
-                            <i class='glyphicon glyphicon-floppy-save' 
-                            aria-hidden="true" 
-                            data-toggle='tooltip' 
-                            title='Save'></i>
-						</button>
-					</div><!--/.pull-right-->					
-				</div><!--/.panel-heading-->
+            <button type='submit' 
+              class='btn btn-inverse btn-md' name='master'><i class='glyphicon glyphicon-floppy-save' aria-hidden="true" data-toggle='tooltip' title='Save'></i>
+            </button>
+          </div><!--/.pull-right-->
+        </div><!--/.panel-heading-->
 				<div class='panel-body'>
-					<div class='row'>
-						<div class='col-md-4'>
-                            <label for='{{ form.parent_id.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.parent_id.errors %} has-error {% endif %}'>
-                              {{ form.parent_id }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.sequence.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.sequence.errors %} has-error {% endif %}'>
-                              {{ form.sequence }}
-                            </div><!--/.form-group-->
-                          </div><!--/.col-md-4-->						  
-						  <div class='col-md-4'>
-                            <label for='{{ form.priority.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.priority.errors %} has-error {% endif %}'>
-                              {{ form.priority }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.activity_number.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.activity_number.errors %} has-error {% endif %}'>
-                              {{ form.activity_number }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.summary.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.summary.errors %} has-error {% endif %}'>
-                              {{ form.summary }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.description.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.description.errors %} has-error {% endif %}'>
-                              {{ form.description }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.activity_type.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.activity_type.errors %} has-error {% endif %}'>
-                              {{ form.activity_type }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.activity_status.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.activity_status.errors %} has-error {% endif %}'>
-                              {{ form.activity_status }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.lifecycle_status.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.lifecycle_status.errors %} has-error {% endif %}'>
-                              {{ form.lifecycle_status }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.req_start_date.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.req_start_date.errors %} has-error {% endif %}'>
-                              {{ form.req_start_date }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.req_start_time.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.req_start_time.errors %} has-error {% endif %}'>
-                              {{ form.req_start_time }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.sched_start_date.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.sched_start_date.errors %} has-error {% endif %}'>
-                              {{ form.sched_start_date }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.sched_start_time.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.sched_start_time.errors %} has-error {% endif %}'>
-                              {{ form.sched_start_time }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.sched_end_date.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.sched_end_date.errors %} has-error {% endif %}'>
-                              {{ form.sched_end_date }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.sched_end_time.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.sched_end_time.errors %} has-error {% endif %}'>
-                              {{ form.sched_end_time }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.act_start_date.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.act_start_date.errors %} has-error {% endif %}'>
-                              {{ form.act_start_date }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.act_start_time.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.act_start_time.errors %} has-error {% endif %}'>
-                              {{ form.act_start_time }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.act_end_date.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.act_end_date.errors %} has-error {% endif %}'>
-                              {{ form.act_end_date }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.act_end_time.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.act_end_time.errors %} has-error {% endif %}'>
-                              {{ form.act_end_time }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.manager_assignee.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.manager_assignee.errors %} has-error {% endif %}'>
-                              {{ form.manager_assignee }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.coordinator_assignee.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.coordinator_assignee.errors %} has-error {% endif %}'>
-                              {{ form.coordinator_assignee }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.created_by.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.created_by.errors %} has-error {% endif %}'>
-                              {{ form.created_by }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.created_date.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.created_date.errors %} has-error {% endif %}'>
-                              {{ form.created_date }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.modified_by.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.modified_by.errors %} has-error {% endif %}'>
-                              {{ form.modified_by }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->
-						  <div class='col-md-4'>
-                            <label for='{{ form.modified_date.auto_id }}'>Type<span class='required'>*</span></label>
-                            <div class='form-group {% if form.modified_date.errors %} has-error {% endif %}'>
-                              {{ form.modified_date }}
-                            </div><!--/.form-group-->
-						  </div><!--/.col-md-4-->						  
+            <div class='col-md-2'>
+              <label for='{{ form.sequence.auto_id }}'>Sequence<span class='required'>*</span></label>
+              <div class='form-group {% if form.sequence.errors %} has-error {% endif %}'>
+                {{ form.sequence }}
+              </div><!--/.form-group-->
+            </div><!--/.col-md-2-->						  
+						<div class='col-md-2'>
+              <label for='{{ form.priority.auto_id }}'>Priority<span class='required'>*</span></label>
+              <div class='form-group {% if form.priority.errors %} has-error {% endif %}'>
+                {{ form.priority }}
+              </div><!--/.form-group-->
+						</div><!--/.col-md-2-->                          
+            <div class='col-md-2'>
+              <label for='{{ form.activity_type.auto_id }}'>Type<span class='required'>*</span></label>
+              <div class='form-group {% if form.activity_type.errors %} has-error {% endif %}'>
+                {{ form.activity_type }}
+              </div><!--/.form-group-->
+            </div><!--/.col-md-2-->
+            <div class='col-md-2'>
+              <label for='{{ form.activity_status.auto_id }}'>Status<span class='required'>*</span></label>
+              <div class='form-group {% if form.activity_status.errors %} has-error {% endif %}'>
+                {{ form.activity_status }}
+              </div><!--/.form-group-->
+            </div><!--/.col-md-2-->                            
+						<div class='col-md-12'>
+              <label for='{{ form.summary.auto_id }}'>Summary<span class='required'>*</span></label>
+              <div class='form-group {% if form.summary.errors %} has-error {% endif %}'>
+                {{ form.summary }}
+              </div><!--/.form-group-->
+						</div><!--/.col-md-12-->
+						<div class='col-md-12'>
+              <label for='{{ form.description.auto_id }}'>Description<span class='required'>*</span></label>
+              <div class='form-group {% if form.description.errors %} has-error {% endif %}'>
+                {{ form.description }}
+              </div><!--/.form-group-->
+            </div><!--/.col-md-12-->
+          </div><!--/.panel-body-->
+        </div><!--/.panel .panel-default-->
+        <div class='activity_tabs'>
+          <nav>
+            <ul class='nav nav-tabs'>
+              <li class='active'><a data-toggle='tab' href='#activity_general'>Schedule</a></li>
+              <li><a data-toggle='tab' href='#activity_documents'>Documents</a></li>                    
+              <li><a data-toggle='tab' href='#activity_interactions'>Interactions</a></li>
+              <li><a data-toggle='tab' href='#activity_dates'>Dates</a></li>
+            </ul>
+          </nav>
+          <div class='tab-content'>
+            <div id='activity_general' class='tab-pane active'>
+              <div class='panel panel-default'>
+                <div class='panel-heading clearfix'>
+                  <h3 class='panel-title'>Schedule</h3>
+                </div><!--/.panel-heading-->
+                <div class='panel-body'>
+                  <div class='col-md-3'>
+                    <label for='{{ form.req_start_date.auto_id }}'>Requested Start Date<span class='required'>*</span></label>
+                    <div class='form-group {% if form.req_start_date.errors %} has-error {% endif %}'>
+                      {{ form.req_start_date }}
+                    </div><!--/.form-group-->
+                  </div><!--/.col-md-3-->
+                  <div class='col-md-3'>
+                    <label for='{{ form.req_start_time.auto_id }}'>Requested Start Tiime<span class='required'>*</span></label>
+                    <div class='form-group {% if form.req_start_time.errors %} has-error {% endif %}'>
+                      {{ form.req_start_time }}
+                    </div><!--/.form-group-->
+                  </div><!--/.col-md-3-->
+                  <div class='col-md-3'>
+                    <label for='{{ form.manager_assignee.auto_id }}'>Manager<span class='required'>*</span></label>
+                    <div class='form-group {% if form.manager_assignee.errors %} has-error {% endif %}'>
+                      {{ form.manager_assignee }}
+                    </div><!--/.form-group-->
+                  </div><!--/.col-md-3-->
+                  <div class='col-md-3'>
+                    <label for='{{ form.coordinator_assignee.auto_id }}'>Coordinator<span class='required'>*</span></label>
+                    <div class='form-group {% if form.coordinator_assignee.errors %} has-error {% endif %}'>
+                      {{ form.coordinator_assignee }}
+                    </div><!--/.form-group-->
+                  </div><!--/.col-md-3-->
+                  <div class='col-md-3'>
+                    <label for='{{ form.sched_start_date.auto_id }}'>Scheduled Start Date<span class='required'>*</span></label>
+                    <div class='form-group {% if form.sched_start_date.errors %} has-error {% endif %}'>
+                      {{ form.sched_start_date }}
+                    </div><!--/.form-group-->
+                  </div><!--/.col-md-3-->
+                  <div class='col-md-3'>
+                    <label for='{{ form.sched_start_time.auto_id }}'>Scheduled Start Time<span class='required'>*</span></label>
+                    <div class='form-group {% if form.sched_start_time.errors %} has-error {% endif %}'>
+                      {{ form.sched_start_time }}
+                    </div><!--/.form-group-->
+                  </div><!--/.col-md-3-->
+                  <div class='col-md-3'>
+                    <label for='{{ form.sched_end_date.auto_id }}'>Scheduled End Date<span class='required'>*</span></label>
+                    <div class='form-group {% if form.sched_end_date.errors %} has-error {% endif %}'>
+                      {{ form.sched_end_date }}
+                    </div><!--/.form-group-->
+                  </div><!--/.col-md-3-->
+                  <div class='col-md-3'>
+                    <label for='{{ form.sched_end_time.auto_id }}'>Scheduled End Time<span class='required'>*</span></label>
+                    <div class='form-group {% if form.sched_end_time.errors %} has-error {% endif %}'>
+                      {{ form.sched_end_time }}
+                    </div><!--/.form-group-->
+                  </div><!--/.col-md-3-->
+                  <div class='col-md-3'>
+                    <label for='{{ form.act_start_date.auto_id }}'>Actual Start Date<span class='required'>*</span></label>
+                    <div class='form-group {% if form.act_start_date.errors %} has-error {% endif %}'>
+                      {{ form.act_start_date }}
+                    </div><!--/.form-group-->
+                  </div><!--/.col-md-3-->
+                  <div class='col-md-3'>
+                    <label for='{{ form.act_start_time.auto_id }}'>Actual Start Time<span class='required'>*</span></label>
+                    <div class='form-group {% if form.act_start_time.errors %} has-error {% endif %}'>
+                      {{ form.act_start_time }}
+                    </div><!--/.form-group-->
+                  </div><!--/.col-md-3-->
+                  <div class='col-md-3'>
+                    <label for='{{ form.act_end_date.auto_id }}'>Actual End Datee<span class='required'>*</span></label>
+                    <div class='form-group {% if form.act_end_date.errors %} has-error {% endif %}'>
+                      {{ form.act_end_date }}
+                    </div><!--/.form-group-->
+                  </div><!--/.col-md-3-->
+                  <div class='col-md-3'>
+                    <label for='{{ form.act_end_time.auto_id }}'>Actual End Time<span class='required'>*</span></label>
+                    <div class='form-group {% if form.act_end_time.errors %} has-error {% endif %}'>
+                      {{ form.act_end_time }}
+                    </div><!--/.form-group-->
+                  </div><!--/.col-md-3-->
+                </div><!--/.panel-body-->
+              </div><!--/.panel-panel default-->                
+            </div><!--/#general-->
+            <div id='activity_interactions' class='tab-pane fade'>
+              <div class='panel panel-default'>
+                <div class='panel-heading clearfix'>
+                  {% if modify in 'modify' %}
+                    <div class='pull-right'>
+                      <a href='' button type='button' class='btn btn-inverse btn-md' data-toggle='modal' data-toggle='tooltip' title='New Interaction' data-target='#witness_interaction'><span class='glyphicon glyphicon-pencil'></span></a>
+                    </div><!--/.pull-right-->
+                  {% endif %}
+                  <h3 class='panel-title'>Interaction History</h3>
+                </div><!--/.panel-heading-->
+                <div class='panel-body'>
+                
+                </div><!--/.panel-body-->
+              </div><!--/.panel panel-default-->
+            </div><!--/#interactions tab-->
+            <div id='activity_documents' class='tab-pane fade'>
+              <div class='panel panel-default'>
+                <div class='panel-heading clearfix'>
+                  {% if modify in 'modify' %}
+                    <div class='pull-right'>
+                      <a href='' button type='button' class='btn btn-inverse btn-md' data-toggle='modal' data-toggle='tooltip' title='New Document' data-target='#activity_document'><span class='glyphicon glyphicon-pencil'></span></a>
+                    </div><!--/.pull-right-->
+                  {% endif %}
+                  <h3 class='panel-title'>Document History </h3>
+                </div><!--/.panel-heading-->
+                <div class='panel-body'>
 
-						</div><!--/.row-->
-					<div class='row'>
-						<div class='col-md-12'>
-							<label for='id_description'>Narrative Description </label>
-							<div class='form-group {% if form.description.errors %} has-error {% endif %}'>
-                                {{ form.description }}
-                            </div><!--/.form-group-->
-						</div><!--/.col-md-4-->
-					</div><!--/.row-->
-					<div class='row'>
-						<div class='col-md-12'>
-							<label for='id_attachment'>Attachments </label>
-							<div class='form-group {% if form.attachment.errors %} has-error {% endif %}'>
-                                {{ form.attachment }}
-                            </div><!--/.form-group-->
-						</div><!--/.col-md-4-->
-					</div><!--/.row-->
-				</div><!--/.panel-body-->
-			</div><!--/.panel .panel-default-->
-		</form>
+                </div><!--/.panel-body-->
+              </div><!--/.panel panel-default-->
+            </div><!--/#documents tab-->
+            <div id='activity_dates' class='tab-pane fade'>
+              <div class='panel panel-default'>
+                <div class='panel-heading clearfix'>
+                  <h3 class='panel-title'>Dates </h3>
+                </div><!--/.panel-heading-->
+                <div class='panel-body'>
+                  <div class='col-md-2'>
+                    <label>Parent ID</label>
+                    <input class='form-control' value='{{ activity.parent_id }}' type='text' readonly>
+                  </div><!--/.col-md-2-->
+                  <div class='col-md-2'>
+                    <label>Activity No. </label>
+                    <input class='form-control' value='{{ activity.parent_id }}' type='text' readonly>
+                  </div><!--/.col-md-2-->                   
+                  <div class='col-md-2'>
+                    <label>Created By</label>
+                    <input class='form-control' value='{{ activity.created_by }}' type='text' readonly>
+                  </div><!--/.col-md-2-->
+                  <div class='col-md-2'>
+                    <label>Created Date</label>
+                    <input class='form-control' value='{{ activity.created_date }}' type='text' readonly>
+                  </div><!--/.col-md-2-->
+                  <div class='col-md-2'>
+                    <label>Modified By</label>
+                    <input class='form-control' value='{{ activity.modified_by }}' type='text' readonly>
+                  </div><!--/.col-md-2-->
+                  <div class='col-md-2'>
+                    <label>Modified Date</label>
+                    <input class='form-control' value='{{ activity.modified_date }}' type='text' readonly>
+                  </div><!--/.col-md-2-->        
+                    <label>Lifecycle Status</label>
+                    <input class='form-control' value='{{ activity.lifecycle_status }}' type='text' readonly>
+                  </div><!--/.col-md-2-->        
+                </div><!--/.panel-body-->
+              </div><!--/.panel panel-default-->
+            </div><!--/#activity_dates tab-->
+          </div><!--/#activity_tabs-->                      
+        </form>
+      </div>                                                  
 	</div><!--/.wraper .container-fluid-->
 {% endblock %}
