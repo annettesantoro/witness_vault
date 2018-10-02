@@ -1,8 +1,0 @@
-@media print {
-	header, nav, footer {
-		display: none !important;
-	}
-	#screen_content {
-		display: none;
-	}
-}

@@ -228,23 +228,25 @@ def interaction_repository(request):
 def modify_interaction(request, pk):
     # Query Sets
     interaction = get_object_or_404(Interaction, pk=pk)
-    if request.method == "POST":
-        form = InteractionForm(request.POST, request.FILES,
-                               instance=interaction)
+    # Modify Interaction
+    if request.method == "POST" and 'master' in request.POST:     
+        form = InteractionForm(request.POST, instance=interaction)
         if form.is_valid():
-            interaction = form.save(commit=False)
+            form = InteractionForm(request.POST, instance=interaction)
             interaction.modified_by = request.user
             interaction.modified_date = timezone.now()
-            if interaction.parent_id == '':
-                interaction.parent_id = None
             interaction.save()
-            interaction.interaction_number = "I" + str(interaction.id)
+            interaction.interaction_number = "I - " + str(interaction.id)
             interaction.save()
-            return redirect(request.META['HTTP_REFERER'])
+            messages.success(request, 'Interaction Has Been Modified')
+            return redirect(interaction_repository)
+        else:
+            messages.error(request, 'Interaction Has Not Been Modified')
     else:
         form = InteractionForm(instance=interaction)
     return render(request,
                   'witness_management/interaction.html',
                   {'form': form,
                    'interaction': interaction,
-                   'title': ' Modify Interaction ' })                                              
+                   'modify': 'modify',
+                   'title': 'Modify Interaction:  ' + str(interaction.interaction_number)})                                                                 
