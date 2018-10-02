@@ -155,6 +155,23 @@
                             {% endif %}
                         </div><!--/.form-group-->
                     </div><!--/.col-md-12-->
+                    <div class='col-md-2'>
+                        <label>Created By</label>
+                        <input class='form-control' value='{{ interaction.created_by }}' type='text' readonly>
+                    </div><!--/.col-md-2-->
+                    <div class='col-md-2'>
+                        <label>Created Date</label>
+                        <input class='form-control' value='{{ interactiuon.created_date }}' type='text' readonly>
+                    </div><!--/.col-md-2-->
+                    <div class='col-md-2'>
+                        <label>Modified By</label>
+                        <input class='form-control' value='{{ interaction.modified_by }}' type='text' readonly>
+                    </div><!--/.col-md-2-->
+                    <div class='col-md-2'>
+                        <label>Modified Date</label>
+                        <input class='form-control' value='{{ interactiuon.modified_date }}' type='text' readonly>
+                    </div><!--/.col-md-2-->                    
+
                 </div><!--/.row-->
 			</div><!--/.panel-body-->
 		</div><!--/.panel panel-default-->

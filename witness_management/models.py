@@ -33,7 +33,11 @@ class Witness(models.Model):
     created_date = models.CharField(max_length=80, blank=True, null=True)
     statement = models.CharField(max_length=10, blank=True, null=True)
     investigator = models.CharField(max_length=100, blank=True, null=True)
-    case_status = models.CharField(max_length=30, blank=True, null=True)                          
+    case_status = models.CharField(max_length=30, blank=True, null=True)
+    created_by = models.CharField(max_length=80, blank=True, null=True)
+    created_date = models.CharField(max_length=80, blank=True, null=True)
+    modified_by = models.CharField(max_length=80, blank=True, null=True)
+    modified_date = models.CharField(max_length=80, blank=True, null=True)                              
 
     def create(self):
         self.save()
@@ -89,7 +93,9 @@ class Document(models.Model):
     issued_date = models.CharField(max_length=40, blank=True, null=True)       
     received_date = models.CharField(max_length=40, blank=True, null=True)          
     created_by = models.CharField(max_length=60, blank=True, null=True)
-    created_date = models.CharField(max_length=60, blank=True, null=True)        
+    created_date = models.CharField(max_length=60, blank=True, null=True)
+    modified_by = models.CharField(max_length=60, blank=True, null=True)
+    modified_date = models.CharField(max_length=60, blank=True, null=True)            
 
     def create(self):
         self.save()
@@ -112,6 +118,8 @@ class Interaction(models.Model):
     status = models.CharField(max_length=40, blank=True, null=True)    
     created_by = models.CharField(max_length=60, blank=True, null=True)
     created_date = models.CharField(max_length=60, blank=True, null=True)
+    modified_by = models.CharField(max_length=60, blank=True, null=True)
+    modified_date = models.CharField(max_length=60, blank=True, null=True)    
     interaction_date = models.CharField(max_length=60, blank=True, null=True)
     relationship = models.CharField(max_length=80, blank=True, null=True)                          
 
