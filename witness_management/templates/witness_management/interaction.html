@@ -11,7 +11,7 @@
                         data-toggle='tooltip' 
                         title='Save File'></i>
                     </button>
-                    <a href="{% url '' %}">
+                    <a href="#">
                         <button type='button' class='btn btn-inverse btn-md'>
                             <i class='glyphicon glyphicon-folder-close' 
                             aria-hidden="true"
@@ -71,27 +71,38 @@
                             <span class='glyphicon glyphicon-remove form-control-feedback'></span>
                             {% endif %}
 						</div><!--/.form-group-->
-					</div><!--/.col-md-2-->
+                    </div><!--/.col-md-2-->
+					<div class='col-md-2'>
+                        <label for='{{ form.status.auto_id }}'>Status
+                            <span class='required'>*</span>
+                        </label>
+                        <div class='form-group {% if form.status.errors %} has-error {% endif %} has-feedback'>
+                            {{ form.status }}
+                            {% if form.status.errors %}
+                            <span class='glyphicon glyphicon-remove form-control-feedback'></span>
+                            {% endif %}
+						</div><!--/.form-group-->
+					</div><!--/.col-md-2-->                    
 				</div><!--/.row-->
 				<div class='row'>
 					<div class='col-md-4'>
-                        <label for='{{ form.interactor_name.auto_id }}'>Contact Name
+                        <label for='{{ form.interactor.auto_id }}'>Full Name
                             <span class='required'>*</span>
                         </label>
-                        <div class='form-group {% if form.interactor_name.errors %} has-error {% endif %} has-feedback'>
-                            {{ form.interactor_name }}
-                            {% if form.interactor_name.errors %}
+                        <div class='form-group {% if form.first_name.errors %} has-error {% endif %} has-feedback'>
+                            {{ form.interactor }}
+                            {% if form.interactor.errors %}
                             <span class='glyphicon glyphicon-remove form-control-feedback'></span>
                             {% endif %}
                         </div><!--/.form-group-->
                     </div><!--/.col-md-4-->
                     <div class='col-md-3'>
-                        <label for='{{ form.relationship_to_site.auto_id }}'>Relationship to Site
+                        <label for='{{ form.relationship_to_site.auto_id }}'>Relationship to Witness
                             <span class='required'>*</span>
                         </label>
-                        <div class='form-group {% if form.relationship_to_site.errors %} has-error {% endif %} has-feedback'>
-                            {{ form.relationship_to_site }}
-                            {% if form.relationship_to_site.errors %}
+                        <div class='form-group {% if form.relationship.errors %} has-error {% endif %} has-feedback'>
+                            {{ form.relationship }}
+                            {% if form.relationship.errors %}
                             <span class='glyphicon glyphicon-remove form-control-feedback'></span>
                             {% endif %}
                         </div><!--/.form-group-->
@@ -134,12 +145,12 @@
                 </div><!--/.row-->
                 <div class='row'>
                     <div class='col-md-12'>
-                        <label for='{{ form.narrative_description.auto_id }}'>Narrative Description
+                        <label for='{{ form.description.auto_id }}'>Narrative Description
                             <span class='required'>*</span>
                         </label>
-                        <div class='form-group {% if form.narrative_description.errors %} has-error {% endif %} has-feedback'>
-                            {{ form.narrative_description }}
-                            {% if form.narrative_description.errors %}
+                        <div class='form-group {% if form.description.errors %} has-error {% endif %} has-feedback'>
+                            {{ form.description }}
+                            {% if form.description.errors %}
                             <span class='glyphicon glyphicon-remove form-control-feedback'></span>
                             {% endif %}
                         </div><!--/.form-group-->

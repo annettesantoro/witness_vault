@@ -165,7 +165,7 @@ def new_activity(request):
 def modify_activity(request, pk):
     # Query Sets
     activity = get_object_or_404(Activity, pk=pk)
-    if request.method == "POST":
+    if request.method == "POST" and "master":
         form = ActivityForm(request.POST, request.FILES,
                                instance=activity)
         if form.is_valid():
@@ -228,7 +228,7 @@ def interaction_repository(request):
 def modify_interaction(request, pk):
     # Query Sets
     interaction = get_object_or_404(Interaction, pk=pk)
-    if request.method == "POST":
+    if request.method == "POST" and "master":
         form = InteractionForm(request.POST, request.FILES,
                                instance=interaction)
         if form.is_valid():

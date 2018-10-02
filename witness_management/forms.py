@@ -370,8 +370,10 @@ class DocumentForm(forms.ModelForm):
 
 class InteractionForm(forms.ModelForm):
     status = (('', '',),
-    ('Submitted', 'Submitted'),
-    ('Delete', 'Delete'))    
+    ('Pending', 'Pending'),
+    ('Completed', 'Completed'),
+    ('Delete', 'Delete'),           
+    ('Archive', 'Archive'))    
     direction = (('', '',),
     ('Inbound', 'Inbound'),
     ('Outbound', 'Outbound'))
@@ -460,4 +462,4 @@ class InteractionForm(forms.ModelForm):
         model = Interaction
         fields = ('phone', 'email', 'interaction_date', 'interaction_type',
                   'interaction_method', 'summary', 'attachment', 'relationship',
-                  'description', 'interaction_number', 'direction', 'status')     
+                  'description', 'interaction_number', 'direction', 'status', 'interactor',)     
