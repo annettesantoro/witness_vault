@@ -14,11 +14,6 @@ urlpatterns = [
         name='home'),
 
     url(
-        r'^home$', 
-        views.home, 
-        name='home'),
-
-    url(
         r'^$', 
         views.welcome, 
         name='welcome'),

@@ -13,7 +13,7 @@ def witness_workbench(request):
     return render(request,
                   'witness_management/witness_workbench.html',
                   {'witnesses': witnesses,
-                   'title': 'Witness Management Workbench'})
+                   'title': 'Witness Workbench'})
 
 def new_witness(request):
     form = WitnessForm()
@@ -215,7 +215,7 @@ def modify_document(request, pk):
                   'witness_management/document.html',
                   {'form': form,
                    'document': document,
-                   'title': 'Document ' + str(document.document_number)})
+                   'title': 'Document '})
 
 
 def interaction_repository(request):
@@ -228,20 +228,20 @@ def interaction_repository(request):
 def modify_interaction(request, pk):
     # Query Sets
     interaction = get_object_or_404(Interaction, pk=pk)
-    # Modify Interaction
-    if request.method == "POST" and 'master' in request.POST:     
-        form = InteractionForm(request.POST, instance=interaction)
+    if request.method == "POST":
+        form = InteractionForm(request.POST, request.FILES,
+                               instance=interaction)
         if form.is_valid():
-            form = InteractionForm(request.POST, instance=interaction)
+            interaction = form.save(commit=False)
             interaction.modified_by = request.user
             interaction.modified_date = timezone.now()
             interaction.save()
-            interaction.interaction_number = "I - " + str(interaction.id)
+            if interaction.parent_id == '':
+                interaction.parent_id = None
             interaction.save()
-            messages.success(request, 'Interaction Has Been Modified')
-            return redirect(interaction_repository)
-        else:
-            messages.error(request, 'Interaction Has Not Been Modified')
+            interaction.interaction_number = "I-" + str(interaction.id)
+            interaction.save()
+            return redirect(request.META['HTTP_REFERER'])
     else:
         form = InteractionForm(instance=interaction)
     return render(request,
@@ -249,4 +249,4 @@ def modify_interaction(request, pk):
                   {'form': form,
                    'interaction': interaction,
                    'modify': 'modify',
-                   'title': 'Modify Interaction:  ' + str(interaction.interaction_number)})                                                                 
+                   'title': ' Modify Interaction: ' + str(interaction.interaction_number)})

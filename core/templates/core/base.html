@@ -1,4 +1,6 @@
+<!DOCTYPE html>
 {% load staticfiles %}
+<html lang='en'>
   <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
@@ -106,48 +108,58 @@
   	  </style>
 	</head>
   <body>
+
     <aside class='left-panel'><!-- Aside Start-->
-      <div class='logo'>
-        <a href='' class='logo-expanded'>
+    	<div class='logo'>
+				<a href='' class='logo-expanded'>
           <span class='nav-label'>OHS EXPRESS</span>
-        </a>
-      </div><!--logo-->
-      <nav class='navigation'><!-- Navbar Start -->
-        <ul class='list-unstyled'>
+				</a>
+			</div><!--logo-->
+      <button type='button' class='navbar-toggle pull-right'>
+					<span class='sr-only'>Toggle navigation</span>
+					<span class='icon-bar'></span>
+					<span class='icon-bar'></span>
+					<span class='icon-bar'></span>
+				</button>
+			<nav class='navigation'><!-- Navbar Start -->
+				<ul class='list-unstyled'>
           <li class='has-submenu'><a href='#'><i class='fa fa-eye' aria-hidden='True'></i> <span class='nav-label'>Witness Management</span></a>
 						<ul class='list-unstyled'>
-							<li><a href="" target=''>Witness Dashboard</a></li>
-              <li><a href="{% url 'witness_workbench' %}" target=''>Witness Workbench</a></li>
+              <li><a href="{% url 'witness_workbench' %}" target="">Witness Workbench</a></li>
               <li><a href="{% url 'activity_workbench' %}" target=''>Activities Workbench</a></li>			              
               <li><a href="{% url 'document_repository' %}" target=''>Document Repository</a></li>					
 							<li><a href="{% url 'interaction_repository' %}" target=''>Interactions Repository</a></li>					                            										
 						</ul>
 					</li>
 				</ul>
-      </nav><!-- Navbar end -->
-    </aside><!-- Aside End-->
-    <section class='content'><!--Main Content Start -->
-      <header class='top-head container-fluid'><!-- Header -->
-        <button type='button' class='navbar-toggle pull-left'>
-          <span class='sr-only'>Toggle navigation</span>
-        </button>
-        <ul class='list-inline navbar-right top-menu top-right-menu'><!-- user login dropdown start-->
-          <li class='dropdown text-center'><img alt='' src='' class='img-circle profile-img thumb-sm'>
-            <a href="{% url 'logout' %}" class='logout'>Log Out</a>
-					</li><!-- user login dropdown end -->
-				</ul>
-			</header>
-			<!-- Header Ends -->
-			{% block content %}{% endblock %}
+			</nav><!-- Navbar end -->
+		</aside><!-- Aside End-->
 
-      <footer class='footer'><!-- Footer Start -->
+		<section class='content'><!--Main Content Start -->
+			<!-- Header -->
+			<header class='top-head container-fluid'>
+
+					<ul class='list-inline navbar-right top-menu top-right-menu'>
+					<!-- user login dropdown start-->
+					<li class='dropdown text-center'>
+						<img alt='' src='' class='img-circle profile-img thumb-sm'>
+						<a href="{% url 'logout' %}" class='logout'>Log Out</a>
+					</li>
+					<!-- user login dropdown end -->
+				</ul>
+			</header><!-- Header Ends -->
+      {% block content %}
+      {% endblock %}
+			<!-- Footer Start -->
+			<footer class='footer'>
         <div class='pull-right'>
-          <span class='username'>Current User:  {{ user.username }}</span>
-        </div>
-        <div class='pull-left'>2018 © Annette Santoro Consulting Inc.</div>
-      </footer><!-- Footer Ends -->
-    </section><!-- Main Content Ends -->
-    
+        <span class='username'>Current User:  {{ user.username }}</span>
+      </div>
+        <div class='pull-left'>2015 © Annette Santoro Consulting Inc.</div>
+			</footer>
+			<!-- Footer Ends -->
+		</section>
+		<!-- Main Content Ends -->
     <!-- js placed at the end of the document so the pages load faster -->
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
   <script src="{% static 'js/modernizr.min.js' %}"></script>
@@ -163,6 +175,7 @@
   <script src="{% static 'assets/easypie-chart/easypiechart.min.js' %}"></script>
   <script src="{% static 'assets/easypie-chart/jquery.easypiechart.min.js' %}"></script>
   <script src="{% static 'assets/easypie-chart/example.js' %}"></script>
+
 
   <!--C3 Chart-->
   <script src="{% static 'assets/c3-chart/d3.v3.min.js' %}"></script>
@@ -220,7 +233,7 @@
               html: true
             });
             {% endif %}
-        {% elif 'error' in message.tags %}
+        {% elif "Error" in message.tags %}
           swal({
             title: "Error",
             text:"<strong class='text-danger'>{{ message }}</strong>",
@@ -235,6 +248,13 @@
 
   </script>
   <script src="{% static 'js/jquery.app.js' %}"></script>
+  <!-- Chat -->
+  <script src="{% static 'js/jquery.chat.js' %}"></script>
+  <!-- Dashboard -->
+<!--  Temporarily Removed - <script src="{% static 'js/jquery.dashboard.js' %}"></script>-->
+
+  <!-- Todo -->
+  <script src="{% static 'js/jquery.todo.js' %}"></script>
 
   <!--datatables import -->
   <script src="{% static 'assets/datatables/jquery.dataTables.min.js' %}"></script>
@@ -311,3 +331,4 @@
   {% block javascript %}{% endblock %}
 
 	</body>
+</html>

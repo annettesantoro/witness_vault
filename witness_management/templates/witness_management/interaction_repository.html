@@ -10,31 +10,30 @@
 					    <div class='col-md-12 col-sm-12 col-xs-12'>
                             <div style="overflow-x:auto;">
                                 <table class='datatable table table-hover'>
-							    <thead>
-								    <tr>
-									    <th>ID</th>
-					            		<th>Source ID</th>
-								    	<th>Type</th>
-                                        <th>Method</th>
-								    	<th>Interactor</th>                                        
-								    	<th>Date</th>
-								    	<th>Status</th>
-									    <th>Actions</th>
-							    	</tr>
-                                </thead>
-                                <tbody>
-                                    {% for interaction in interactions %}
-                                    <tr>
-                                        <td>{{ interaction.interaction_number }}</td>
-							    		<td>{{ interaction.parent_id }}</td>
-								    	<td>{{ interaction.interaction_type }}</td>
-	    								<td>{{ interaction.interaction_method }}</td>
-                                        <td>{{ interaction.interactor }}</td>
-						    			<td>{{ interaction.interaction_date }}</td>                                        
-			    						<td>{{ interaction.status }}</td>
-                    					<td><a href="{% url 'modify_interaction' pk=interaction.pk %}"><span class='glyphicon glyphicon-folder-open'></span></a></td>
-                                        </td>
-                                    </tr>
+									<thead>
+										<tr>
+											<th>ID</th>
+					            			<th>Source ID</th>
+								    		<th>Type</th>
+                                        	<th>Method</th>
+								    		<th>Interactor</th>                                        
+								    		<th>Date</th>
+								    		<th>Status</th>
+											<th>Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for interaction in interactions %}
+										<tr>
+											<td>{{ interaction.interaction_number }}</td>
+							    			<td>{{ interaction.parent_id }}</td>
+								    		<td>{{ interaction.interaction_type }}</td>
+	    									<td>{{ interaction.interaction_method }}</td>
+                                        	<td>{{ interaction.interactor }}</td>
+						    				<td>{{ interaction.interaction_date }}</td>                                        
+			    							<td>{{ interaction.status }}</td>
+                    						<td><a href="{% url 'modify_interaction' pk=interaction.pk %}"><span class='glyphicon glyphicon-folder-open'></span></a></td>
+                                        </tr>
                                     {% endfor %}
 							    </tbody>
     						</table>

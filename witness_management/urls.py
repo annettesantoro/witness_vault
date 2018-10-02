@@ -40,4 +40,5 @@ urlpatterns = [
     url(r'^modify_interaction/(?P<pk>\d+)/$',
         views.modify_interaction,
         name='modify_interaction'),
+
 ]
