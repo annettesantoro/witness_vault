@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
 # Importing Of Models
 from .models import Witness, Activity, Document, Interaction
 # Importing of timezone
@@ -8,6 +10,7 @@ from django.utils import timezone
 from .forms import WitnessForm, ActivityForm, DocumentForm, InteractionForm
 # Create your views here.
 
+@login_required(login_url='/login/')
 def witness_workbench(request):
     witnesses = Witness.objects.all()
     return render(request,
@@ -15,6 +18,7 @@ def witness_workbench(request):
                   {'witnesses': witnesses,
                    'title': 'Witness Workbench'})
 
+@login_required(login_url='/login/')
 def new_witness(request):
     form = WitnessForm()
     if request.method == "POST":
@@ -37,7 +41,8 @@ def new_witness(request):
                   'witness_management/witness.html',
                   {'form': form,
                    'title': 'New Witness'})
-                   
+
+@login_required(login_url='/login/')                   
 def modify_witness(request, pk):
     # Query Sets
     witness = get_object_or_404(Witness, pk=pk)
@@ -135,6 +140,7 @@ def modify_witness(request, pk):
                    'modify': 'modify',
                    'title': 'Modify Witness:  ' + str(witness.witness_number)})
 
+@login_required(login_url='/login/')
 def activity_workbench(request):
     activities = Activity.objects.all()
     return render(request,
@@ -142,6 +148,7 @@ def activity_workbench(request):
                   {'activities': activities,
                   'title': 'Activity Workbench'})
 
+@login_required(login_url='/login/')
 def new_activity(request):
     # Query Sets
     form = ActivityForm()
@@ -165,6 +172,7 @@ def new_activity(request):
                   {'form': form,
                    'title': 'New Activity'})
 
+@login_required(login_url='/login/')
 def modify_activity(request, pk):
     # Query Sets
     activity = get_object_or_404(Activity, pk=pk)
@@ -234,6 +242,7 @@ def modify_activity(request, pk):
                    'modify': 'modify',
                    'title': 'Activity ' + str(activity.activity_number)})
 
+@login_required(login_url='/login/')
 def document_repository(request):
     documents = Document.objects.all()
     return render(request,
@@ -241,6 +250,7 @@ def document_repository(request):
                   {'documents': documents,
                    'title': 'Document Repository'})
 
+@login_required(login_url='/login/')
 def modify_document(request, pk):   
     # Query Sets
     document = get_object_or_404(Document, pk=pk)
@@ -272,7 +282,7 @@ def modify_document(request, pk):
                    'document': document,
                    'title': 'Document '})
 
-
+@login_required(login_url='/login/')
 def interaction_repository(request):
     interactions = Interaction.objects.all()
     return render(request,
@@ -280,6 +290,7 @@ def interaction_repository(request):
                   {'interactions': interactions,
                   'title': 'Interactions Repository'})
 
+@login_required(login_url='/login/')
 def modify_interaction(request, pk):
     # Query Sets
     interaction = get_object_or_404(Interaction, pk=pk)
