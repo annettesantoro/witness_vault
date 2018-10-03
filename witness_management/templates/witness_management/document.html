@@ -14,19 +14,11 @@
 					<h3 class='panel-title'>{{ title }}</h3>
 				</div><!--/.panel-heading clearfix-->
 				<div class='panel-body'>
-					<div class='col-md-2'>
-						<label>Process</label>
-						<input class='form-control' value='{{ document.process }}' type='text' readonly>
-					</div><!--/.col-md-2-->											
-					<div class='col-md-1'>
-						<label>Parent ID</label>
-						<input class='form-control' value='{{ document.parent_id }}' type='text' readonly>
-					</div><!--/.col-md-1-->						
 					<div class='col-md-1'>
 						<label>Doc No.</label>
 						<input class='form-control' value='{{ document.document_number }}' type='text' readonly>
 					</div><!--/.col-md-2-->					
-						<div class='col-md-3'>
+						<div class='col-md-2'>
 							<label for='{{ form.document_type.auto_id }}'>Document Type
 								<span class='required'>*</span>
 							</label>
@@ -36,7 +28,7 @@
 								<span class='glyphicon glyphicon-remove form-control-feedback'></span>
 								{% endif %}
 							</div><!--/.form-group-->
-						</div><!--/.col-md-3-->
+						</div><!--/.col-md-2-->
 						<div class='col-md-3'>
 							<label for='{{ form.author.auto_id }}'>Author
 								<span class='required'>*</span>
@@ -47,7 +39,30 @@
 								<span class='glyphicon glyphicon-remove form-control-feedback'></span>
 								{% endif %}
 							</div><!--/.form-group-->
-						</div><!--/.col-md-3-->						
+						</div><!--/.col-md-3-->
+						<div class='col-md-2'>
+								<label for='{{ form.issued_date.auto_id }}'>Issued Date
+									<span class='required'>*</span>
+								</label>
+								<div class='form-group {% if form.issued_date.errors %} has-error {% endif %} has-feedback'>
+									{{ form.issued_date }}
+									{% if form.issued_date.errors %}
+									<span class='glyphicon glyphicon-remove form-control-feedback'></span>
+									{% endif %}
+								</div><!--/.form-group-->
+							</div><!--/.col-md-2-->	
+							<div class='col-md-2'>
+								<label for='{{ form.received_date.auto_id }}'>Received Date
+									<span class='required'>*</span>
+								</label>
+								<div class='form-group {% if form.received_date.errors %} has-error {% endif %} has-feedback'>
+									{{ form.received_date }}
+									{% if form.received_date.errors %}
+									<span class='glyphicon glyphicon-remove form-control-feedback'></span>
+									{% endif %}
+								</div><!--/.form-group-->
+							</div><!--/.col-md-2-->								
+						
 						<div class='col-md-2'>
 							<label for='{{ form.status.auto_id }}'>Status
 								<span class='required'>*</span>
@@ -60,7 +75,7 @@
 							</div><!--/.form-group-->
 						</div><!--/.col-md-2-->						
 						<div class='row'>						
-					<div class='col-md-6'>
+					<div class='col-md-12'>
                         <label for='{{ form.summary.auto_id }}'>Summary
                             <span class='required'>*</span>
                         </label>
@@ -70,29 +85,7 @@
                             <span class='glyphicon glyphicon-remove form-control-feedback'></span>
                             {% endif %}
                         </div><!--/.form-group-->
-					</div><!--/.col-md-6-->
-					<div class='col-md-3'>
-						<label for='{{ form.issued_date.auto_id }}'>Issued Date
-							<span class='required'>*</span>
-						</label>
-						<div class='form-group {% if form.issued_date.errors %} has-error {% endif %} has-feedback'>
-							{{ form.issued_date }}
-							{% if form.issued_date.errors %}
-							<span class='glyphicon glyphicon-remove form-control-feedback'></span>
-							{% endif %}
-						</div><!--/.form-group-->
-					</div><!--/.col-md-3-->	
-					<div class='col-md-3'>
-						<label for='{{ form.received_date.auto_id }}'>Received Date
-							<span class='required'>*</span>
-						</label>
-						<div class='form-group {% if form.received_date.errors %} has-error {% endif %} has-feedback'>
-							{{ form.received_date }}
-							{% if form.received_date.errors %}
-							<span class='glyphicon glyphicon-remove form-control-feedback'></span>
-							{% endif %}
-						</div><!--/.form-group-->
-					</div><!--/.col-md-3-->									
+					</div><!--/.col-md-12-->
 				</div><!--/.row-->					
 					<div class='row'>
 					<div class='col-md-12'>
@@ -122,25 +115,31 @@
 						</div><!--/.row-->
 					</div><!--/.panel-body-->
 				</div><!--/.panel .panel-default-->
+				
 						<div class='col-md-3'>
 							<label>Created By</label>
 							<input class='form-control' value='{{ document.created_by }}' type='text' readonly>
 						</div><!--/.col-md-3-->
-						<div class='col-md-3'>
+						<div class='col-md-2'>
 							<label>Created Date</label>
 							<input class='form-control' value='{{ document.created_date }}' type='text' readonly>
-						</div><!--/.col-md-3-->
-						<div class='col-md-3'>
+						</div><!--/.col-md-2-->
+						<div class='col-md-2'>
+								<label>Process</label>
+								<input class='form-control' value='{{ document.process }}' type='text' readonly>
+							</div><!--/.col-md-2-->											
+							<div class='col-md-1'>
+								<label>Parent ID</label>
+								<input class='form-control' value='{{ document.parent_id }}' type='text' readonly>
+							</div><!--/.col-md-1-->							
+						<div class='col-md-2'>
 							<label>Modified By</label>
 							<input class='form-control' value='{{ document.modified_by }}' type='text' readonly>
-						</div><!--/.col-md-3-->
-						<div class='col-md-3'>
+						</div><!--/.col-md-2-->
+						<div class='col-md-2'>
 							<label>Modified Date</label>
 							<input class='form-control' value='{{ document.modified_date }}' type='text' readonly>
-						</div><!--/.col-md-3-->
-
-
-
+						</div><!--/.col-md-2-->
 		</form>
 	</div><!--/.wraper .container-fluid-->
 {% endblock %}
