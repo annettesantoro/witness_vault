@@ -1,9 +1,39 @@
 {% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
     <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Log out page that identifies that you have been logged out.">
+    <meta name="description" content="Page that a user is redirected to when they log out">
     <meta name="author" content="Annette Santoro">
     <link rel="shortcut icon" href="">
+    <title>{{ title }}</title>
+    <!-- jQuery moved to top so we can utilize it in the pages -->
+		<script src="{% static 'js/jquery.js' %}"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+		<link href="{% static 'css/bootstrap-reset.css' %}" rel="stylesheet">
+    <!--Animation css-->
+		<link href="{% static 'css/animate.css' %}" rel="stylesheet">
+		<!-- Custom styles for this template -->
+		<link href="{% static 'css/style.css' %}" rel="stylesheet">
+		<link href="{% static 'css/helper.css' %}" rel="stylesheet">
+		<link href="{% static 'css/style-responsive.css' %}" rel="stylesheet" />
+		<link type='text/css'  href="{% static 'stylesheets/main.css' %}" rel='stylesheet'>
+    </head>
+    <body>
+        <div class="wrapper-page animated fadeInDown">
+            <div class="panel panel-color panel-inverse">
+                <div class="panel-heading">
+                    <h3 class="text-center m-t-10"> You session has timed out, you have been inactive in <strong>witnessVault</strong> for more than 10 miinutes
+                    </h3>
+                </div><!-- panel-heading -->
+                <form class="form-horizontal m-t-40" action="/logout/" method=post>
+                    {% csrf_token %}
+                    <div class="form-group text-right">
+                        <div class="col-xs-12">
+                            <button class="btn btn-inverse w-md" type="submit">Return to Login</button>
+                        </div><!-- col-xs-12 -->
+                    </div><!-- form group -->
+                </form>
+            </div><!-- panel panel-color -->
+        </div><!-- wraper container-fluid animated fadInDown -->
+    </body>

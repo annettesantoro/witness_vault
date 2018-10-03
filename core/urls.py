@@ -9,17 +9,17 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     url(
-        r'^$', 
+        r'^home$', 
         views.home, 
         name='home'),
 
     url(
-        r'^$', 
+        r'^welcome$', 
         views.welcome, 
         name='welcome'),
 
     url(
-        r'^$', 
+        r'^timeout$', 
         views.timeout, 
         name='timeout'),
     
@@ -29,7 +29,7 @@ urlpatterns = [
         name='logout'),
 
     url(
-        r'^login$', 
+        r'^login/$', 
         views.login, 
         name='login'),        
     ]
