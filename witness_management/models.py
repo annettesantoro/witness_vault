@@ -74,6 +74,7 @@ class Activity(models.Model):
     created_date = models.CharField(max_length=80, blank=True, null=True)
     modified_by = models.CharField(max_length=80, blank=True, null=True)
     modified_date = models.CharField(max_length=80, blank=True, null=True)
+    process = models.CharField(max_length=80, blank=True, null=True)          
 
     def create(self):
         self.save()
@@ -95,7 +96,8 @@ class Document(models.Model):
     created_by = models.CharField(max_length=60, blank=True, null=True)
     created_date = models.CharField(max_length=60, blank=True, null=True)
     modified_by = models.CharField(max_length=60, blank=True, null=True)
-    modified_date = models.CharField(max_length=60, blank=True, null=True)            
+    modified_date = models.CharField(max_length=60, blank=True, null=True)
+    process = models.CharField(max_length=80, blank=True, null=True)                      
 
     def create(self):
         self.save()
@@ -121,7 +123,9 @@ class Interaction(models.Model):
     modified_by = models.CharField(max_length=60, blank=True, null=True)
     modified_date = models.CharField(max_length=60, blank=True, null=True)    
     interaction_date = models.CharField(max_length=60, blank=True, null=True)
-    relationship = models.CharField(max_length=80, blank=True, null=True)                          
+    relationship = models.CharField(max_length=80, blank=True, null=True)
+    process = models.CharField(max_length=80, blank=True, null=True)  
+                       
 
     def create(self):
         self.save()

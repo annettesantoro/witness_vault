@@ -286,7 +286,7 @@ class ActivityForm(forms.ModelForm):
         model = Activity
         fields =  ('sequence', 'activity_number', 'activity_type', 'activity_status', 'lifecycle_status', 'act_start_date', 'act_start_time', 'sched_start_date', 'sched_start_time',
         'act_end_date', 'act_end_time', 'sched_end_date', 'sched_end_time', 'summary', 'description', 'priority', 'parent_id', 'manager_assignee',
-        'coordinator_assignee', 'req_start_date', 'req_start_time', 'req_end_date', 'req_end_time',)
+        'coordinator_assignee', 'req_start_date', 'req_start_time', 'req_end_date', 'req_end_time', 'process',)
 
 #################
 #  DOCUMENTFORM #
@@ -311,11 +311,6 @@ class DocumentForm(forms.ModelForm):
     status = (('New', 'New',),
     ('Active', 'Active'),
     ('Archive', 'Archive'))
-    parent_id = forms.ModelChoiceField(
-            queryset=Document.objects.all(),
-            widget=forms.Select(attrs={'class': 'form-control'}),
-            empty_label='', 
-            required=False)
     document_number = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control'}),
             required=False
@@ -360,9 +355,9 @@ class DocumentForm(forms.ModelForm):
 
     class Meta:
         model = Document
-        fields = ('parent_id', 'document_type', 'status',
-                  'issued_date', 'author', 'description', 'attachment', 
-                  'document_number', 'received_date', 'issued_date')
+        fields = ('document_type', 'status',
+                  'issued_date', 'author', 'description', 'attachment',
+                  'document_number', 'received_date', 'issued_date', 'summary',)
 
 #################
 #  INTERACTIONFORM #
@@ -462,4 +457,4 @@ class InteractionForm(forms.ModelForm):
         model = Interaction
         fields = ('phone', 'email', 'interaction_date', 'interaction_type',
                   'interaction_method', 'summary', 'attachment', 'relationship',
-                  'description', 'interaction_number', 'direction', 'status', 'interactor',)     
+                  'description', 'interaction_number', 'direction', 'status', 'interactor', 'process',)     

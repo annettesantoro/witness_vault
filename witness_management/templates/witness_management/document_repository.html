@@ -19,7 +19,8 @@
                                 <table class='datatable table table-hover'>
 							    <thead>
 								    <tr>
-									    <th>Doc ID</th>
+                                        <th>Doc ID</th>
+					            		<th>Process</th>                                        
 					            		<th>Source ID</th>
 								    	<th>Document Type</th>
                                         <th>Title</th>
@@ -33,6 +34,7 @@
                                     {% for document in documents %}
                                     <tr>
                                         <td>{{ document.document_number }}</td>
+							    		<td>{{ document.process }}</td>                                        
 							    		<td>{{ document.parent_id }}</td>
 								    	<td>{{ document.document_type }}</td>
 	    								<td>{{ document.summary }}</td>

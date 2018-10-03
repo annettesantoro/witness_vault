@@ -74,6 +74,7 @@ def modify_witness(request, pk):
             document.parent_id = witness.id    
             document.save()
             document.document_number = "D - " + str(document.id)
+            document.process = "Witness Management"            
             document.save()
             document_form = DocumentForm()
             messages.success(request, 'New Document Has Been Created')
@@ -92,6 +93,7 @@ def modify_witness(request, pk):
             interaction.save()
             interaction.interaction_number = "I - " + str(interaction.id)
             interaction.parent_id = witness.id
+            interaction.process = "Witness Management"               
             interaction.save()
             interaction_form = InteractionForm()
             messages.success(request, 'New Interaction Has Been Created')
@@ -109,6 +111,7 @@ def modify_witness(request, pk):
             activity.created_date = timezone.now()
             activity.save()
             activity.parent_id = witness.id
+            activity.process = "Witness Management"               
             activity.activity_status = "New"            
             activity.activity_number = "A-" + str(activity.id)
             activity.save()
@@ -165,6 +168,8 @@ def new_activity(request):
 def modify_activity(request, pk):
     # Query Sets
     activity = get_object_or_404(Activity, pk=pk)
+    documents = Document.objects.filter(process='Operations Management', parent_id=activity.id)
+    interactions = Interaction.objects.filter(process='Operations Management', parent_id=activity.id)    
     if request.method == "POST" and "master":
         form = ActivityForm(request.POST, request.FILES,
                                instance=activity)
@@ -180,10 +185,53 @@ def modify_activity(request, pk):
             return redirect(request.META['HTTP_REFERER'])
     else:
         form = ActivityForm(instance=activity)
+    # Create Relationship to Document
+    if request.method == "POST" and 'activity_document' in request.POST:
+        document_form = DocumentForm(request.POST, request.FILES)
+        if document_form.is_valid():
+            document = document_form.save(commit=False)
+            document.created_by = request.user
+            document.created_date = timezone.now()
+            document.parent_id = activity.id    
+            document.save()
+            document.document_number = "D - " + str(document.id)
+            document.process = "Operations Management"            
+            document.save()
+            document_form = DocumentForm()
+            messages.success(request, 'New Document Has Been Created')
+            return redirect(request.META['HTTP_REFERER'])
+        else:
+            messages.error(request, 'New Document Has Not Been Created')
+    else:
+        document_form = DocumentForm()
+    # Create Relationship to Interaction
+    if request.method == "POST" and 'activity_interaction' in request.POST:
+        interaction_form = InteractionForm(request.POST, request.FILES)
+        if interaction_form.is_valid():
+            interaction = interaction_form.save(commit=False)
+            interaction.created_by = request.user
+            interaction.created_date = timezone.now()
+            interaction.save()
+            interaction.interaction_number = "I - " + str(interaction.id)
+            interaction.parent_id = activity.id
+            interaction.process = "Operations Management"               
+            interaction.save()
+            interaction_form = InteractionForm()
+            messages.success(request, 'New Interaction Has Been Created')
+            return redirect(request.META['HTTP_REFERER'])
+        else:
+            messages.error(request, 'New Interaction Has Not Been Created')
+    else:
+        interaction_form = InteractionForm()        
     return render(request,
                   'witness_management/activity.html',
                   {'form': form,
                    'activity': activity,
+                   'document_form': document_form,
+                   'interaction_form': interaction_form,
+                   'documents': documents,
+                   'interactions': interactions,
+                   'modify': 'modify',
                    'title': 'Activity ' + str(activity.activity_number)})
 
 def document_repository(request):
@@ -203,8 +251,15 @@ def modify_document(request, pk):
             document = form.save(commit=False)
             document.modified_by = request.user
             document.modified_date = timezone.now()
-            document.document_number = "D-" + str(document.id)
+            document.save()            
+            if document.process == '':
+                document.process = None
             document.save()
+            if document.parent_id == '':
+                document.parent_id = None
+            document.save()
+            document.document_number = "D-" + str(document.id)
+            document.save()            
             messages.success(request, 'Document Has Been Modified')
             return redirect(request.META['HTTP_REFERER'])
         else:
