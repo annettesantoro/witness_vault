@@ -25,8 +25,8 @@
 			<div class='panel-body'>
 				<div class='row'>
 					<div class='col-md-2'>
-						<label>Parent ID</label>
-						<input class='form-control' value='{{ interaction.parent_id }}' type='text' readonly>
+						<label>Interaction No</label>
+						<input class='form-control' value='{{ interaction.interaction_number }}' type='text' readonly>
 					</div><!--/.col-md-2-->
 					<div class='col-md-2'>
                         <label for='{{ form.interaction_type.auto_id }}'>Interaction Type
@@ -158,22 +158,30 @@
                 </div><!--/.row-->
 			</div><!--/.panel-body-->
         </div><!--/.panel panel-default-->
-        <div class='col-md-2'>
-            <label>Created By</label>
-            <input class='form-control' value='{{ interaction.created_by }}' type='text' readonly>
-        </div><!--/.col-md-2-->
-        <div class='col-md-2'>
-            <label>Created Date</label>
-             <input class='form-control' value='{{ interactiuon.created_date }}' type='text' readonly>
-        </div><!--/.col-md-2-->
-        <div class='col-md-2'>
-            <label>Modified By</label>
-            <input class='form-control' value='{{ interaction.modified_by }}' type='text' readonly>
-        </div><!--/.col-md-2-->
-        <div class='col-md-2'>
-            <label>Modified Date</label>
-            <input class='form-control' value='{{ interactiuon.modified_date }}' type='text' readonly>
-        </div><!--/.col-md-2-->                    
+        <div class='col-md-3'>
+                <label>Created By</label>
+                <input class='form-control' value='{{ interaction.created_by }}' type='text' readonly>
+            </div><!--/.col-md-3-->
+            <div class='col-md-2'>
+                <label>Created Date</label>
+                <input class='form-control' value='{{ interaction.created_date }}' type='text' readonly>
+            </div><!--/.col-md-2-->
+            <div class='col-md-2'>
+                    <label>Process</label>
+                    <input class='form-control' value='{{ interaction.process }}' type='text' readonly>
+                </div><!--/.col-md-2-->											
+                <div class='col-md-1'>
+                    <label>Parent ID</label>
+                    <input class='form-control' value='{{ interaction.parent_id }}' type='text' readonly>
+                </div><!--/.col-md-1-->							
+            <div class='col-md-2'>
+                <label>Modified By</label>
+                <input class='form-control' value='{{ interaction.modified_by }}' type='text' readonly>
+            </div><!--/.col-md-2-->
+            <div class='col-md-2'>
+                <label>Modified Date</label>
+                <input class='form-control' value='{{ interaction.modified_date }}' type='text' readonly>
+            </div><!--/.col-md-2-->                
 	</form>			
 </div><!--/.wraper container-fluid-->
 {% endblock %}

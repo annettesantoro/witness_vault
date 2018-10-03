@@ -285,8 +285,8 @@ class ActivityForm(forms.ModelForm):
     class Meta:
         model = Activity
         fields =  ('sequence', 'activity_number', 'activity_type', 'activity_status', 'lifecycle_status', 'act_start_date', 'act_start_time', 'sched_start_date', 'sched_start_time',
-        'act_end_date', 'act_end_time', 'sched_end_date', 'sched_end_time', 'summary', 'description', 'priority', 'parent_id', 'manager_assignee',
-        'coordinator_assignee', 'req_start_date', 'req_start_time', 'req_end_date', 'req_end_time', 'process',)
+        'act_end_date', 'act_end_time', 'sched_end_date', 'sched_end_time', 'summary', 'description', 'priority', 'manager_assignee',
+        'coordinator_assignee', 'req_start_date', 'req_start_time', 'req_end_date', 'req_end_time',)
 
 #################
 #  DOCUMENTFORM #
@@ -457,4 +457,4 @@ class InteractionForm(forms.ModelForm):
         model = Interaction
         fields = ('phone', 'email', 'interaction_date', 'interaction_type',
                   'interaction_method', 'summary', 'attachment', 'relationship',
-                  'description', 'interaction_number', 'direction', 'status', 'interactor', 'process',)     
+                  'description', 'interaction_number', 'direction', 'status', 'interactor',)     

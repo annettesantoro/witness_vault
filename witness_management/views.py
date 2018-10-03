@@ -291,6 +291,8 @@ def modify_interaction(request, pk):
             interaction.modified_by = request.user
             interaction.modified_date = timezone.now()
             interaction.save()
+            if interaction.process == '':
+                interaction.process = None            
             if interaction.parent_id == '':
                 interaction.parent_id = None
             interaction.save()
