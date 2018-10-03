@@ -544,21 +544,21 @@
                         name='witness_activity'>
                         {% csrf_token %}{{ activity_form.errors }}
                         <div class='col-md-2'>
-                                <label for='{{ activity_form.sequence.auto_id }}'>Seq.<span class='required'>*</span></label>
-                                <div class='form-group {% if activity_form.sequence.errors %} has-error {% endif %}'>
-                                  {{ activity_form.sequence }}
-                                </div><!--/.form-group-->
-                              </div><!--/.col-md-2-->                          
+                            <label for='{{ activity_form.sequence.auto_id }}'>Seq.<span class='required'>*</span></label>
+                            <div class='form-group {% if activity_form.sequence.errors %} has-error {% endif %}'>
+                                {{ activity_form.sequence }}
+                            </div><!--/.form-group-->
+                        </div><!--/.col-md-2-->                          
                         <div class='col-md-4'>
                             <label for='{{ activity_form.activity_type.auto_id }}'>Type<span class='required'>*</span></label>
                             <div class='form-group {% if activity_form.activity_type.errors %} has-error {% endif %}'>
-                              {{ activity_form.activity_type }}
+                                {{ activity_form.activity_type }}
                             </div><!--/.form-group-->
-                          </div><!--/.col-md-4-->
-                          <div class='col-md-3'>
+                        </div><!--/.col-md-4-->
+                        <div class='col-md-3'>
                             <label for='{{ activity_form.priority.auto_id }}'>Priority<span class='required'>*</span></label>
                             <div class='form-group {% if activity_form.priority.errors %} has-error {% endif %}'>
-                              {{ activity_form.priority }}
+                                {{ activity_form.priority }}
                             </div><!--/.form-group-->
                           </div><!--/.col-md-3-->
                           <div class='col-md-3'>

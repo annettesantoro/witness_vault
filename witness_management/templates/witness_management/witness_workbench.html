@@ -35,22 +35,22 @@
 							</thead>
 							<tbody>
 								{% for witness in witnesses %}
-									<tr>
-										<td>{{ witness.witness_number }}</td>
-										<td>{{ witness.witness_type }}</td>
-										<td>{{ witness.mechanism }}</td>										
-										<td>{{ witness.last_name }}</td>
-										<td>{{ witness.first_name }}</td>										
-										<td>{{ witness.status }}</td>
-                    					<td><a href="{% url 'modify_witness' pk=witness.pk %}"><span class='glyphicon glyphicon-folder-open'></span></a></td>
-										</tr>
+								<tr>
+									<td>{{ witness.witness_number }}</td>
+									<td>{{ witness.witness_type }}</td>
+									<td>{{ witness.mechanism }}</td>										
+									<td>{{ witness.last_name }}</td>
+									<td>{{ witness.first_name }}</td>										
+									<td>{{ witness.status }}</td>
+                    				<td><a href="{% url 'modify_witness' pk=witness.pk %}"><span class='glyphicon glyphicon-folder-open'></span></a></td>
+								</tr>
 								{% endfor %}
 							</tbody>
 						</table>
-					</div>
-					</div><!--/.col-md-12 col-sm-12 col-xs-12-->
-				</div><!--/.row-->
-			</div><!--/.panel-body-->
-		</div><!--/.panel panel-default-->
-	</div><!--/.wraper container-fluid-->
+					</div><!--overflow-->
+				</div><!--/.col-md-12 col-sm-12 col-xs-12-->
+			</div><!--/.row-->
+		</div><!--/.panel-body-->
+	</div><!--/.panel panel-default-->
+</div><!--/.wraper container-fluid-->
 {% endblock %}
