@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from random import randint
+from django.views.generic import TemplateView
 
 # Importing Of Models
 from .models import Witness, Activity, Document, Interaction
@@ -10,7 +13,6 @@ from django.utils import timezone
 from .forms import WitnessForm, ActivityForm, DocumentForm, InteractionForm
 # Create your views here.
 
-@login_required(login_url='/login/')
 def witness_workbench(request):
     witnesses = Witness.objects.all()
     return render(request,
@@ -18,7 +20,6 @@ def witness_workbench(request):
                   {'witnesses': witnesses,
                    'title': 'Witness Workbench'})
 
-@login_required(login_url='/login/')
 def new_witness(request):
     form = WitnessForm()
     if request.method == "POST":
@@ -42,7 +43,7 @@ def new_witness(request):
                   {'form': form,
                    'title': 'New Witness'})
 
-@login_required(login_url='/login/')                   
+            
 def modify_witness(request, pk):
     # Query Sets
     witness = get_object_or_404(Witness, pk=pk)
@@ -318,3 +319,38 @@ def modify_interaction(request, pk):
                    'interaction': interaction,
                    'modify': 'modify',
                    'title': ' Modify Interaction: ' + str(interaction.interaction_number)})
+
+
+# Home #
+########
+def timeout(request):
+    return render(request,
+                  'witness_management/timeout.html',
+                  {'title': 'Time Out'})
+
+def logout(request):
+    return render(request,
+                  'witness_management/logout.html',
+                  {'title': 'Log Out'})
+
+def home(request):
+    return render(request,
+                  'witness_management/index.html',
+                  {'title': 'Home'})
+
+
+def welcome(request):
+    return render(request,
+                  'witness_management/welcome.html',
+                  {'title': 'Welcome'})
+
+
+# Dashboard #
+#############
+
+def dashboard(request):
+    return render(request,
+                  'witness_management/dashboard.html',
+                  {'title': 'Global Dashboard'})
+
+              

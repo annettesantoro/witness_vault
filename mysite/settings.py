@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'witness_management',
     'core',
+    'registration',    
 ]
 
 MIDDLEWARE = [
@@ -85,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'witness_vault',
         'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'PASSWORD': 'Jordan100',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }

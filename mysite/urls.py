@@ -20,5 +20,6 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', include('core.urls')),
-    path('witness_management/', include('witness_management.urls')),  
+    path('witness_management/', include('witness_management.urls')),
+    path('registration/', include('registration.urls')),        
 ]
