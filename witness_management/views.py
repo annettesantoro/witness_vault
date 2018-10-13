@@ -13,12 +13,12 @@ from django.utils import timezone
 from .forms import WitnessForm, ActivityForm, DocumentForm, InteractionForm
 # Create your views here.
 
-def witness_workbench(request):
+def witness_vault(request):
     witnesses = Witness.objects.all()
     return render(request,
-                  'witness_management/witness_workbench.html',
+                  'witness_management/witness_vault.html',
                   {'witnesses': witnesses,
-                   'title': 'Witness Workbench'})
+                   'title': 'Witness Vault'})
 
 def new_witness(request):
     form = WitnessForm()
@@ -33,7 +33,7 @@ def new_witness(request):
             witness.witness_number = "W - " + str(witness.id)
             witness.save()
             messages.success(request, 'New Witness Has Been Created', extra_tags='modify modify_witness/' + str(witness.id))
-            return redirect(witness_workbench)
+            return redirect(witness_vault)
         else:
             messages.error(request, 'Witness Has Not Been Created')
     else:
@@ -65,7 +65,7 @@ def modify_witness(request, pk):
             witness.witness_number = "W - " + str(witness.id)
             witness.save()
             messages.success(request, 'Witness Has Been Modified')
-            return redirect(witness_workbench)
+            return redirect(witness_vault)
         else:
             messages.error(request, 'Witness Has Not Been Modified')
     else:

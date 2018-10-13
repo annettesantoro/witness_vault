@@ -9,9 +9,9 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(
-        r'^witness_workbench$',
-        views.witness_workbench,
-        name='witness_workbench'),
+        r'^witness_vault/$',
+        views.witness_vault,
+        name='witness_vault'),
     
     url(
         r'^new_witness$',
