@@ -9,7 +9,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(
-        r'^$',
+        r'^witness_workbench$',
         views.witness_workbench,
         name='witness_workbench'),
     
@@ -47,9 +47,11 @@ urlpatterns = [
         views.modify_interaction,
         name='modify_interaction'),
 
-    url(r'^home/$',
-        views.home,
-        name='home'),   
+    url(
+        r'^$',
+        views.login,
+        name='login'),
+
 
     url(r'^login/$',
         views.login,
