@@ -323,6 +323,14 @@ def modify_interaction(request, pk):
 
 # Home #
 ########
+
+
+def login(request):
+    return render(request,
+                  'witness_management/login.html',
+                  {'title': 'Log In'})
+
+
 def timeout(request):
     return render(request,
                   'witness_management/timeout.html',
